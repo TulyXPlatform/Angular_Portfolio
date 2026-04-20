@@ -1,0 +1,35 @@
+<section class="hero-section" *ngIf="heroData$ | async as heroData">
+  
+  <!-- Media Layer Handling: Color vs Image vs Video -->
+  <div class="media-container" [style.background-color]="isColor(heroData.backgroundMedia) ? heroData.backgroundMedia : 'transparent'">
+    <video *ngIf="isVideo(heroData.backgroundMedia)" autoplay loop muted playsinline class="bg-media">
+      <source [src]="heroData.backgroundMedia" type="video/mp4" />
+    </video>
+    
+    <img *ngIf="isImage(heroData.backgroundMedia)" [src]="heroData.backgroundMedia" class="bg-media img-layer" alt="Hero background" />
+  </div>
+
+  <!-- Dynamic Overlay Opacity Support -->
+  <div class="video-overlay" [style.opacity]="heroData.overlayOpacity || 0.6"></div>
+
+  <div class="hero-content">
+    <div class="drafting-box">
+      <div class="corner top-left"></div>
+      <div class="corner top-right"></div>
+      <div class="corner bottom-left"></div>
+      <div class="corner bottom-right"></div>
+      
+      <h1 class="glitch" [attr.data-text]="heroData.title">
+        {{ heroData.title }}
+      </h1>
+      <p class="subtitle">{{ heroData.subtitle }}</p>
+      
+      <div class="cta-container">
+        <!-- Render infinite buttons cleanly if available -->
+        <a *ngFor="let btn of heroData.ctaButtons" [href]="btn.link" class="blueprint-btn">
+          {{ btn.label }}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,65 @@
+/* Engineering/Blueprint Style Global Variables */
+:root {
+  --blueprint-bg: #0d1a26;
+  --blueprint-line: rgba(51, 153, 255, 0.3);
+  --blueprint-line-thick: rgba(51, 153, 255, 0.5);
+  --text-primary: #e6f2ff;
+  --text-secondary: #80bfff;
+  --accent: #ffb31a; /* Warning/accent color used in engineering */
+  --font-main: 'Roboto Mono', monospace; /* Monospace for technical feel */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--blueprint-bg);
+  background-image: 
+    linear-gradient(var(--blueprint-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--blueprint-line) 1px, transparent 1px),
+    linear-gradient(var(--blueprint-line-thick) 2px, transparent 2px),
+    linear-gradient(90deg, var(--blueprint-line-thick) 2px, transparent 2px);
+  background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+  background-position: -1px -1px, -1px -1px, -2px -2px, -2px -2px;
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 1px solid var(--blueprint-line-thick);
+  padding-bottom: 5px;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  text-shadow: 0 0 8px var(--accent);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--blueprint-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--text-secondary);
+}

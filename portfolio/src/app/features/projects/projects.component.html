@@ -1,0 +1,28 @@
+<section id="projects" class="projects-section container">
+  <div class="card-header">
+    <h2 class="section-title">PROJECT_INVENTORY()</h2>
+    <div class="line-deco"></div>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active">ALL</button>
+    <button class="filter-btn">RESIDENTIAL</button>
+    <button class="filter-btn">COMMERCIAL</button>
+    <button class="filter-btn">INFRASTRUCTURE</button>
+  </div>
+
+  <div class="projects-grid">
+    <div class="project-card" *ngFor="let project of projects; trackBy: trackById" (click)="viewProject(project)">
+      <div class="image-container">
+        <img [src]="project.media[0]?.thumbnail || project.media[0]?.url || 'assets/placeholder.jpg'" alt="Project thumb">
+        <div class="overlay">
+          <i class="fas fa-search-plus"></i> <span class="overlay-text">VIEW_SCHEMATICS</span>
+        </div>
+      </div>
+      <div class="project-info">
+        <h3>{{ project.title }}</h3>
+        <p class="category">> {{ project.category }}</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,124 @@
+.projects-section {
+  padding: 100px 20px;
+}
+
+.section-title {
+  color: var(--text-primary);
+  font-size: 2rem;
+  letter-spacing: 3px;
+}
+
+.line-deco {
+  height: 2px;
+  width: 100%;
+  background: var(--blueprint-line-thick);
+  margin-bottom: 30px;
+}
+
+.filter-bar {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: transparent;
+  border: 1px solid var(--blueprint-line);
+  color: var(--text-secondary);
+  padding: 8px 16px;
+  font-family: var(--font-main);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.filter-btn:hover, .filter-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: inset 0 0 10px rgba(255, 179, 26, 0.2);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.project-card {
+  border: 1px solid var(--blueprint-line-thick);
+  background: rgba(13, 26, 38, 0.6);
+  transition: all 0.3s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(255, 179, 26, 0.2);
+  transform: translateY(-5px);
+}
+
+.image-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 1px solid var(--blueprint-line-thick);
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(80%) sepia(50%) hue-rotate(180deg);
+  transition: all 0.5s;
+}
+
+.project-card:hover .image-container img {
+  filter: grayscale(0%) sepia(0%);
+  transform: scale(1.05);
+}
+
+.overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(13, 26, 38, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.project-card:hover .overlay {
+  opacity: 1;
+}
+
+.overlay-text {
+  color: var(--accent);
+  margin-left: 10px;
+  letter-spacing: 2px;
+}
+
+.overlay i {
+  color: var(--accent);
+  font-size: 1.5rem;
+}
+
+.project-info {
+  padding: 20px;
+}
+
+.project-info h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  border-bottom: none;
+}
+
+.category {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin: 0;
+}

@@ -1,0 +1,39 @@
+<div class="dashboard-header">
+    <h1 class="page-title">Project Database</h1>
+    <button class="mat-primary-btn" (click)="openProjectModal()"><i class="fas fa-plus"></i> Upload Schematic</button>
+</div>
+
+<div class="projects-table-container">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Identifier/Title</th>
+                <th>Category</th>
+                <th>Media Assets</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <strong>Bridge Structural Alpha</strong>
+                    <div class="text-small">INFRA-2023-01</div>
+                </td>
+                <td><span class="chip">Infrastructure</span></td>
+                <td>
+                    <div class="media-icons">
+                        <i class="fas fa-image" title="3 Images"></i>
+                        <i class="fas fa-file-pdf" title="1 PDF"></i>
+                        <i class="fas fa-cube" title="1 CAD Proxy"></i>
+                    </div>
+                </td>
+                <td><span class="status active">PUBLISHED</span></td>
+                <td>
+                    <button class="icon-btn edit"><i class="fas fa-edit"></i></button>
+                    <button class="icon-btn delete"><i class="fas fa-trash"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

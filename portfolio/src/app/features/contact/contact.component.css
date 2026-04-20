@@ -1,0 +1,96 @@
+.contact-section {
+  padding: 100px 20px;
+}
+
+.blueprint-card {
+  border: 1px solid var(--blueprint-line-thick);
+  background: rgba(13, 26, 38, 0.85);
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  position: relative;
+}
+
+.section-title {
+  color: var(--text-primary);
+  font-size: 2rem;
+  letter-spacing: 3px;
+}
+
+.line-deco {
+  height: 2px;
+  width: 100%;
+  background: var(--blueprint-line-thick);
+  margin-bottom: 30px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+}
+
+.contact-info h3 {
+  color: var(--text-primary);
+  margin-bottom: 25px;
+  font-size: 1.2rem;
+}
+
+.info-list {
+  list-style: none;
+  padding: 0;
+}
+
+.info-list li {
+  margin-bottom: 20px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+}
+
+.info-list i {
+  color: var(--accent);
+  margin-right: 15px;
+  font-size: 1.3rem;
+  width: 25px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  color: var(--accent);
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.blueprint-input {
+  width: 100%;
+  background: rgba(13, 26, 38, 0.5);
+  border: 1px solid var(--blueprint-line);
+  padding: 15px;
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  transition: all 0.3s;
+}
+
+.blueprint-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 10px rgba(255, 179, 26, 0.2);
+}
+
+.execute-btn {
+  width: 100%;
+  padding: 15px;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}

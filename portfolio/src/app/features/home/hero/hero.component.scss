@@ -1,0 +1,143 @@
+.hero-section {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Smooth animation on load */
+  animation: fadeIn 1.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.media-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+.bg-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Engineering blueprint styled sepia/blueprint mapping */
+  filter: grayscale(100%) contrast(120%) sepia(100%) hue-rotate(180deg) saturate(300%) brightness(0.6);
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-value, #0d1a26);
+  z-index: -1;
+  mix-blend-mode: multiply;
+  transition: opacity 0.5s ease;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 0 20px;
+  max-width: 100%;
+}
+
+.drafting-box {
+  position: relative;
+  border: 1px solid var(--text-secondary);
+  padding: 40px 60px;
+  background: rgba(13, 26, 38, 0.7);
+  backdrop-filter: blur(5px);
+  animation: slideUp 1s ease 0.5s both;
+}
+
+@keyframes slideUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--primary-color, #ffb31a);
+}
+
+.top-left { top: -5px; left: -5px; }
+.top-right { top: -5px; right: -5px; }
+.bottom-left { bottom: -5px; left: -5px; }
+.bottom-right { bottom: -5px; right: -5px; }
+
+.glitch {
+  font-size: clamp(2rem, 5vw, 4rem); /* Responsive typography */
+  margin-bottom: 20px;
+  color: var(--text-primary);
+  text-shadow: 2px 2px 0px rgba(51, 153, 255, 0.5);
+  border-bottom: none;
+}
+
+.subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.5rem); /* Responsive subtitle */
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+}
+
+.cta-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.blueprint-btn {
+  display: inline-block;
+  padding: 10px 30px;
+  border: 1px solid var(--text-secondary);
+  color: var(--text-primary);
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  cursor: pointer;
+  z-index: 1;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.blueprint-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--text-secondary);
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.blueprint-btn:hover::before {
+  left: 0;
+}
+
+.blueprint-btn:hover {
+  color: #000;
+  box-shadow: 0 0 15px var(--text-secondary);
+}
+
+/* Responsive Overrides */
+@media (max-width: 768px) {
+  .drafting-box {
+    padding: 30px 20px;
+  }
+}

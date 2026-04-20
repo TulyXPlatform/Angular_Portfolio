@@ -1,0 +1,19 @@
+<div class="app-layout" [ngStyle]="{'font-family': 'var(--font-family)'}">
+  
+  <!-- Dynamic Media Background -->
+  <div class="media-layer" *ngIf="(theme$ | async) as theme">
+    <video *ngIf="theme.backgroundType === 'video'" [src]="theme.backgroundValue" autoplay loop muted playsinline></video>
+    <img *ngIf="theme.backgroundType === 'image'" [src]="theme.backgroundValue" alt="Background">
+  </div>
+
+  <app-header>
+     <!-- Dark Mode Toggle projected into header -->
+     <button class="theme-toggle" (click)="toggleTheme()"><i class="fas fa-adjust"></i> Toggle Mode</button>
+  </app-header>
+  
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+  
+  <app-footer></app-footer>
+</div>

@@ -1,0 +1,35 @@
+<div class="admin-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <h2><i class="fas fa-drafting-compass"></i> ENG_CMS</h2>
+    </div>
+    <nav class="nav-menu">
+      <a routerLink="/dashboard" routerLinkActive="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a routerLink="/projects" routerLinkActive="active"><i class="fas fa-project-diagram"></i> Project Manager</a>
+      <a routerLink="/settings" routerLinkActive="active"><i class="fas fa-cog"></i> Platform Settings</a>
+      <a routerLink="/media" routerLinkActive="active"><i class="fas fa-images"></i> Media Library</a>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="logout-btn"><i class="fas fa-sign-out-alt"></i> Terminate Session</button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="topbar">
+        <div class="topbar-search">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Query database...">
+        </div>
+        <div class="topbar-user">
+            <span>Admin_01</span>
+            <div class="avatar">A</div>
+        </div>
+    </header>
+    <div class="content-area">
+        <!-- Dashboard/Project components will be routed here -->
+        <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

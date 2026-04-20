@@ -1,0 +1,130 @@
+.media-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(13, 26, 38, 0.95);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+}
+
+.toolbar {
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background: rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid var(--blueprint-line);
+}
+
+.counter {
+  color: var(--text-secondary);
+  font-family: var(--font-main);
+}
+
+.actions {
+  display: flex;
+  gap: 15px;
+}
+
+.tool-btn {
+  background: transparent;
+  border: 1px solid var(--text-secondary);
+  color: var(--text-primary);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tool-btn:hover {
+  background: var(--text-secondary);
+  color: var(--blueprint-bg);
+}
+
+.close-btn {
+  border-color: #ff4d4d;
+  color: #ff4d4d;
+}
+
+.close-btn:hover {
+  background: #ff4d4d;
+  color: #fff;
+}
+
+.media-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  cursor: grab;
+}
+
+.media-container.zoomed {
+  cursor: grab;
+}
+
+.media-container.grabbing {
+  cursor: grabbing;
+}
+
+.transform-container {
+  transition: transform 0.1s ease-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+img, video {
+  max-width: 90%;
+  max-height: 80vh;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--blueprint-line-thick);
+}
+
+object {
+  width: 80%;
+  height: 85vh;
+  background: #fff;
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(13, 26, 38, 0.8);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s;
+}
+
+.nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  border-color: var(--text-secondary);
+  color: var(--text-secondary);
+}
+
+.nav-btn:not(:disabled):hover {
+  background: var(--accent);
+  color: var(--blueprint-bg);
+  box-shadow: 0 0 15px var(--accent);
+}
+
+.prev-btn { left: 20px; }
+.next-btn { right: 20px; }

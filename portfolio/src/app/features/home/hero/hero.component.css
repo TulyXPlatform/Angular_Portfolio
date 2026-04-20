@@ -1,0 +1,108 @@
+.hero-section {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg-video, .bg-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: -2;
+  filter: grayscale(100%) contrast(120%) sepia(100%) hue-rotate(180deg) saturate(300%) brightness(0.6);
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--blueprint-bg); /* Use blueprint bg with opacity */
+  z-index: -1;
+  mix-blend-mode: multiply;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.drafting-box {
+  position: relative;
+  border: 1px solid var(--text-secondary);
+  padding: 40px 60px;
+  background: rgba(13, 26, 38, 0.7);
+  backdrop-filter: blur(5px);
+}
+
+.corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--accent);
+}
+
+.top-left { top: -5px; left: -5px; }
+.top-right { top: -5px; right: -5px; }
+.bottom-left { bottom: -5px; left: -5px; }
+.bottom-right { bottom: -5px; right: -5px; }
+
+.glitch {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+  text-shadow: 2px 2px 0px rgba(51, 153, 255, 0.5);
+  border-bottom: none;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+}
+
+.blueprint-btn {
+  display: inline-block;
+  margin: 0 10px;
+  padding: 10px 30px;
+  border: 1px solid var(--text-secondary);
+  color: var(--text-primary);
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.blueprint-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--text-secondary);
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.blueprint-btn:hover::before {
+  left: 0;
+}
+
+.blueprint-btn:hover {
+  color: var(--blueprint-bg);
+  box-shadow: 0 0 15px var(--text-secondary);
+}
