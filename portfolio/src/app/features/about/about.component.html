@@ -1,4 +1,4 @@
-<section id="about" class="about-section container">
+<section id="about" class="about-section container" *ngIf="aboutData$ | async as aboutData">
   <div class="blueprint-card">
     <div class="card-header">
       <h2 class="section-title">SYSTEM.ABOUT()</h2>
@@ -6,22 +6,32 @@
     </div>
     <div class="card-body about-grid">
       <div class="about-text">
-        <p class="description">{{ aboutData?.description || 'Loading descriptive metadata...' }}</p>
-        <a [href]="aboutData?.resumeUrl" target="_blank" class="blueprint-btn inline-btn">
+        <p class="description">{{ aboutData.description }}</p>
+        <a *ngIf="aboutData.resumeUrl" [href]="aboutData.resumeUrl" target="_blank" class="blueprint-btn inline-btn">
           <i class="fas fa-download"></i> DOWNLOAD_SCHEMATIC.PDF
         </a>
       </div>
+      
       <div class="technical-specs">
         <div class="spec-block">
           <h3>> CORE_SKILLS</h3>
           <ul class="tag-list">
-            <li *ngFor="let skill of aboutData?.skills" class="tech-tag">{{ skill }}</li>
+            <li *ngFor="let skill of aboutData.skills; let i = index" 
+                class="tech-tag"
+                [style.animation-delay]="(i * 0.1) + 's'">
+              {{ skill }}
+            </li>
           </ul>
         </div>
+        
         <div class="spec-block">
           <h3>> TOOLS_&_SOFTWARE</h3>
           <ul class="tag-list">
-             <li *ngFor="let tool of aboutData?.tools" class="tech-tag">{{ tool }}</li>
+             <li *ngFor="let tool of aboutData.tools; let i = index" 
+                 class="tech-tag"
+                 [style.animation-delay]="(i * 0.1) + 's'">
+               {{ tool }}
+             </li>
           </ul>
         </div>
       </div>

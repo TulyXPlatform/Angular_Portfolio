@@ -1,0 +1,32 @@
+<section class="blog-details-section container" *ngIf="blog$ | async as blog">
+  <a routerLink="/blog" class="back-link"><i class="fas fa-arrow-left"></i> BACK_TO_REPORTS</a>
+
+  <article class="blueprint-card">
+    <div class="article-header">
+       <span class="date">> LOG_DATE: {{ blog.createdAt | date:'mediumDate' }}</span>
+       <h1 class="article-title">{{ blog.title }}</h1>
+       
+       <div class="tags" *ngIf="blog.tags?.length">
+         <span class="tech-tag" *ngFor="let tag of blog.tags">{{ tag }}</span>
+       </div>
+    </div>
+
+    <!-- Primary Cover Asset -->
+    <div class="article-cover" *ngIf="blog.coverImage">
+       <img [src]="blog.coverImage" [alt]="blog.title">
+    </div>
+
+    <!-- Rich HTML injection safe wrapper -->
+    <div class="article-body rich-text-container" [innerHTML]="safeHtmlContent">
+    </div>
+  </article>
+</section>
+
+<!-- Error / Loading boundary -->
+<section class="blog-details-section container" *ngIf="!(blog$ | async)">
+   <a routerLink="/blog" class="back-link"><i class="fas fa-arrow-left"></i> RETURN</a>
+   <div class="empty-state">
+      <i class="fas fa-exclamation-triangle"></i>
+      <p>AWAITING_DOCUMENT_PACKET...</p>
+   </div>
+</section>

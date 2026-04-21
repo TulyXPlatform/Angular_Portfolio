@@ -1,0 +1,133 @@
+.blog-details-section {
+  padding: 80px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.back-link {
+  display: inline-block;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-bottom: 30px;
+  transition: color 0.3s;
+}
+
+.back-link:hover {
+  color: var(--primary-color, #ffb31a);
+}
+
+.blueprint-card {
+  background: var(--bg-value, rgba(13, 26, 38, 0.85));
+  border: 1px solid var(--blueprint-line-thick, rgba(51, 153, 255, 0.5));
+  backdrop-filter: blur(5px);
+  padding: 50px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.article-header {
+  margin-bottom: 30px;
+  border-bottom: 1px solid var(--blueprint-line-thick, rgba(51, 153, 255, 0.5));
+  padding-bottom: 25px;
+}
+
+.date {
+  color: var(--text-secondary);
+  font-family: monospace;
+  font-size: 0.95rem;
+}
+
+.article-title {
+  color: var(--text-primary);
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin: 15px 0;
+  line-height: 1.3;
+  border-bottom: none;
+}
+
+.tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.tech-tag {
+  background: rgba(255,255,255,0.05);
+  border: 1px dashed var(--blueprint-line-thick, rgba(51, 153, 255, 0.5));
+  padding: 5px 12px;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.article-cover {
+  width: 100%;
+  margin-bottom: 40px;
+  border: 1px solid var(--blueprint-line-thick, rgba(51, 153, 255, 0.5));
+  padding: 10px;
+  background: rgba(13, 26, 38, 0.5);
+}
+
+.article-cover img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 
+  Rich Text Core Setup 
+  (Uses ::ng-deep to override encapsulated incoming DB HTML structures safely mapped by DomSanitizer) 
+*/
+::ng-deep .rich-text-container {
+  color: var(--text-primary);
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+::ng-deep .rich-text-container h2, 
+::ng-deep .rich-text-container h3, 
+::ng-deep .rich-text-container h4 {
+  color: var(--primary-color, #ffb31a);
+  margin-top: 40px;
+  margin-bottom: 20px;
+  border-bottom: 1px dashed var(--blueprint-line-thick, rgba(51, 153, 255, 0.5));
+  padding-bottom: 5px;
+}
+
+::ng-deep .rich-text-container p {
+  margin-bottom: 20px;
+}
+
+::ng-deep .rich-text-container img { 
+  max-width: 100%; 
+  height: auto;
+  border: 1px solid var(--blueprint-line, rgba(51, 153, 255, 0.3));
+  margin: 20px 0;
+}
+
+::ng-deep .rich-text-container a { 
+  color: var(--primary-color, #ffb31a); 
+  text-decoration: none; 
+  border-bottom: 1px solid var(--primary-color, #ffb31a);
+}
+
+::ng-deep .rich-text-container pre, 
+::ng-deep .rich-text-container blockquote {
+  background: rgba(0,0,0,0.3);
+  padding: 20px;
+  border-left: 3px solid var(--primary-color, #ffb31a);
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-secondary);
+  border: 1px dashed var(--blueprint-line-thick, rgba(51, 153, 255, 0.5));
+  background: rgba(13, 26, 38, 0.6);
+}
+
+@media (max-width: 768px) {
+  .blueprint-card { padding: 25px; }
+}

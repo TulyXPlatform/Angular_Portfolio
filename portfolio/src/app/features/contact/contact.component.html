@@ -8,27 +8,56 @@
     <div class="contact-grid">
       <div class="contact-info">
         <h3>> TRANSMISSION_COORDINATES</h3>
-        <ul class="info-list">
-          <li><i class="fas fa-envelope"></i> admin@civil-engineer.tld</li>
-          <li><i class="fas fa-phone-alt"></i> +1 (555) 019-2837</li>
-          <li><i class="fas fa-map-marker-alt"></i> Sector 7G, Industrial District</li>
+        
+        <div class="loading-state" *ngIf="!contactData">
+           <i class="fas fa-satellite-dish fa-spin"></i> SYNCING_COORDINATES...
+        </div>
+
+        <ul class="info-list" *ngIf="contactData">
+          <li><i class="fas fa-envelope"></i> {{ contactData.email }}</li>
+          <li><i class="fas fa-phone-alt"></i> {{ contactData.phone }}</li>
+          <li><i class="fas fa-map-marker-alt"></i> {{ contactData.address }}</li>
         </ul>
+
+        <div class="map-container" *ngIf="safeMapUrl">
+           <iframe [src]="safeMapUrl" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
       </div>
 
-      <form class="contact-form">
+      <form class="contact-form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        <!-- API feedback states -->
+        <div class="status-box success" *ngIf="submitStatus === 'success'">
+           <i class="fas fa-check-circle"></i> TRANSMISSION_SUCCESSFUL. PAYLOAD_DELIVERED.
+        </div>
+        <div class="status-box error" *ngIf="submitStatus === 'error'">
+           <i class="fas fa-exclamation-triangle"></i> TRANSMISSION_FAILED. VERIFY_CONNECTION.
+        </div>
+
         <div class="form-group">
           <label>> INITIATOR_NAME</label>
-          <input type="text" class="blueprint-input" placeholder="Enter Designation...">
+          <input type="text" formControlName="name" class="blueprint-input" placeholder="Enter Designation..." [class.is-invalid]="f['name'].invalid && f['name'].touched">
+          <div class="err-msg" *ngIf="f['name'].errors?.['required'] && f['name'].touched">Designation input required.</div>
+          <div class="err-msg" *ngIf="f['name'].errors?.['minlength'] && f['name'].touched">String length insufficient.</div>
         </div>
+        
         <div class="form-group">
           <label>> RETURN_ADDRESS (Email)</label>
-          <input type="email" class="blueprint-input" placeholder="sys@domain.com">
+          <input type="email" formControlName="email" class="blueprint-input" placeholder="sys@domain.com" [class.is-invalid]="f['email'].invalid && f['email'].touched">
+          <div class="err-msg" *ngIf="f['email'].errors?.['required'] && f['email'].touched">Return address path required.</div>
+          <div class="err-msg" *ngIf="f['email'].errors?.['email'] && f['email'].touched">Address syntax invalid.</div>
         </div>
+        
         <div class="form-group">
           <label>> PAYLOAD</label>
-          <textarea class="blueprint-input" rows="5" placeholder="Project details..."></textarea>
+          <textarea formControlName="message" class="blueprint-input" rows="5" placeholder="Project details or inquiry..." [class.is-invalid]="f['message'].invalid && f['message'].touched"></textarea>
+          <div class="err-msg" *ngIf="f['message'].errors?.['required'] && f['message'].touched">Payload cannot be empty.</div>
+          <div class="err-msg" *ngIf="f['message'].errors?.['minlength'] && f['message'].touched">Payload sequence too short.</div>
         </div>
-        <button type="button" class="blueprint-btn execute-btn">EXECUTE_TRANSMISSION</button>
+        
+        <button type="submit" class="blueprint-btn execute-btn" [disabled]="isSubmitting">
+           <span *ngIf="!isSubmitting">EXECUTE_TRANSMISSION</span>
+           <span *ngIf="isSubmitting"><i class="fas fa-sync fa-spin"></i> TRANSMITTING...</span>
+        </button>
       </form>
     </div>
   </div>

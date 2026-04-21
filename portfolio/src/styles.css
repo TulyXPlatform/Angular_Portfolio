@@ -1,65 +1,248 @@
-/* Engineering/Blueprint Style Global Variables */
+/* =========================================================================
+   GLOBAL ENGINEERING BLUEPRINT DESIGN SYSTEM
+   ========================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&family=Inter:wght@300;400;600;800&display=swap');
+
 :root {
-  --blueprint-bg: #0d1a26;
-  --blueprint-line: rgba(51, 153, 255, 0.3);
-  --blueprint-line-thick: rgba(51, 153, 255, 0.5);
-  --text-primary: #e6f2ff;
-  --text-secondary: #80bfff;
-  --accent: #ffb31a; /* Warning/accent color used in engineering */
-  --font-main: 'Roboto Mono', monospace; /* Monospace for technical feel */
+  /* Blueprint Core Colors (Values can be dynamically overridden by ThemeService) */
+  --blueprint-bg: #0a192f;
+  --blueprint-line: rgba(100, 255, 218, 0.1);
+  --blueprint-line-thick: rgba(100, 255, 218, 0.25);
+  
+  /* Text & Accents (Dark Mode Base fallback) */
+  --text-primary: #ccd6f6;
+  --text-secondary: #8892b0;
+  --primary-color: #64ffda; /* Technical Cyan */
+  --secondary-color: #f87171; /* Warning Red */
+  --bg-value: #0a192f;
+  
+  /* Typography */
+  --font-main: 'Roboto Mono', Courier, monospace;
+  --font-body: 'Inter', sans-serif;
+
+  /* Easing Functions for technical feel */
+  --ease-tech: cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+/* Base Body Framework */
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--blueprint-bg);
+  background-color: var(--bg-value);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Global Engineering Grid Backdrop */
   background-image: 
     linear-gradient(var(--blueprint-line) 1px, transparent 1px),
     linear-gradient(90deg, var(--blueprint-line) 1px, transparent 1px),
-    linear-gradient(var(--blueprint-line-thick) 2px, transparent 2px),
-    linear-gradient(90deg, var(--blueprint-line-thick) 2px, transparent 2px);
-  background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
-  background-position: -1px -1px, -1px -1px, -2px -2px, -2px -2px;
-  color: var(--text-primary);
-  font-family: var(--font-main);
-  box-sizing: border-box;
+    linear-gradient(var(--blueprint-line-thick) 1px, transparent 1px),
+    linear-gradient(90deg, var(--blueprint-line-thick) 1px, transparent 1px);
+  background-size: 40px 40px, 40px 40px, 200px 200px, 200px 200px;
+  background-attachment: fixed;
+  background-position: center center;
+  transition: background-color 0.5s var(--ease-tech), color 0.5s var(--ease-tech);
 }
 
 *, *:before, *:after {
   box-sizing: inherit;
 }
 
+/* Technical Typography Set */
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 400;
+  font-family: var(--font-main);
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  border-bottom: 1px solid var(--blueprint-line-thick);
-  padding-bottom: 5px;
+  letter-spacing: 0.12em;
+  color: var(--text-primary);
+  margin-top: 0;
+}
+
+p {
+  margin-top: 0;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
 }
 
 a {
-  color: var(--accent);
+  color: var(--primary-color);
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.3s var(--ease-tech);
+  position: relative;
 }
 
 a:hover {
-  text-shadow: 0 0 8px var(--accent);
+  text-shadow: 0 0 8px rgba(100, 255, 218, 0.4);
 }
 
+/* Micro-Interaction: Global Button Class */
+.blueprint-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 28px;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  background: transparent;
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s var(--ease-tech);
+  z-index: 1;
+}
+
+.blueprint-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-color);
+  z-index: -1;
+  transition: transform 0.4s var(--ease-tech);
+}
+
+.blueprint-btn:hover {
+  color: var(--bg-value);
+  border-color: transparent;
+  box-shadow: 0 5px 20px rgba(100, 255, 218, 0.25);
+  font-weight: 600;
+}
+
+.blueprint-btn:hover::before {
+  transform: translateX(100%);
+}
+
+.blueprint-btn:active {
+  transform: scale(0.96);
+}
+
+/* Structural Shell Classes */
+.blueprint-card {
+  background: rgba(10, 25, 47, 0.65);
+  border: 1px solid var(--blueprint-line-thick);
+  backdrop-filter: blur(12px);
+  position: relative;
+  transition: all 0.4s var(--ease-tech);
+  box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.8);
+}
+
+.blueprint-card:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px -15px rgba(100, 255, 218, 0.15);
+}
+
+/* Corner Fiducials/Crosshairs (Architectural Schema) */
+.blueprint-card::before, .blueprint-card::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--primary-color);
+  transition: all 0.4s var(--ease-tech);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.blueprint-card::before {
+  top: -7px; left: -7px;
+  border-right: none; border-bottom: none;
+}
+
+.blueprint-card::after {
+  bottom: -7px; right: -7px;
+  border-left: none; border-top: none;
+}
+
+.blueprint-card:hover::before, .blueprint-card:hover::after {
+  opacity: 1;
+  width: 20px;
+  height: 20px;
+  box-shadow: 0 0 10px rgba(100, 255, 218, 0.4);
+}
+
+/* Global Form Input Styling (Technical Schema) */
+.blueprint-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--blueprint-line-thick);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  padding: 14px 18px;
+  font-size: 0.95rem;
+  transition: all 0.3s var(--ease-tech);
+  border-radius: 0;
+}
+
+.blueprint-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background: rgba(100, 255, 218, 0.05);
+  box-shadow: inset 0 0 15px rgba(100, 255, 218, 0.1);
+}
+
+.blueprint-input::placeholder {
+  color: rgba(136, 146, 176, 0.5);
+}
+
+/* Structural Layout Spacing */
 .container {
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1250px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 5vw;
 }
 
-/* Custom Scrollbar */
+/* Tech Tags (Micro-interaction) */
+.tech-tag {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(100, 255, 218, 0.05);
+  border: 1px solid var(--blueprint-line-thick);
+  color: var(--text-secondary);
+  font-family: var(--font-main);
+  font-size: 0.8rem;
+  padding: 6px 14px;
+  transition: all 0.3s var(--ease-tech);
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+
+.tech-tag:hover {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+  background: rgba(100, 255, 218, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(100, 255, 218, 0.1);
+}
+
+/* Hardware Accelerated Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
+  height: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--blueprint-bg);
+  background: var(--bg-value);
+  border-left: 1px solid var(--blueprint-line-thick);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--text-secondary);
+  background: var(--blueprint-line-thick);
+  border-radius: 0;
+  border: 1px solid var(--bg-value);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
 }

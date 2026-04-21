@@ -4,25 +4,71 @@
     <div class="line-deco"></div>
   </div>
 
-  <div class="filter-bar">
-    <button class="filter-btn active">ALL</button>
-    <button class="filter-btn">RESIDENTIAL</button>
-    <button class="filter-btn">COMMERCIAL</button>
-    <button class="filter-btn">INFRASTRUCTURE</button>
+  <!-- CONTROL INTERFACE -->
+  <div class="control-panel panel-dark">
+      <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="QUERY_SYSTEM..." class="blueprint-input" (input)="onSearch($event)">
+      </div>
+
+      <div class="filter-bar">
+        <button *ngFor="let cat of categories" 
+                class="filter-btn" 
+                [class.active]="selectedCategory === cat"
+                (click)="filterByCategory(cat)">
+          {{ cat }}
+        </button>
+      </div>
+
+      <div class="tag-bar" *ngIf="allTags.length > 0">
+         <span class="tag-label">> Filter by Tags: </span>
+         <button *ngFor="let tag of allTags"
+                 class="tech-tag"
+                 [class.selected]="selectedTag === tag"
+                 (click)="toggleTag(tag)">
+           {{ tag }}
+         </button>
+      </div>
   </div>
 
-  <div class="projects-grid">
-    <div class="project-card" *ngFor="let project of projects; trackBy: trackById" (click)="viewProject(project)">
-      <div class="image-container">
-        <img [src]="project.media[0]?.thumbnail || project.media[0]?.url || 'assets/placeholder.jpg'" alt="Project thumb">
-        <div class="overlay">
-          <i class="fas fa-search-plus"></i> <span class="overlay-text">VIEW_SCHEMATICS</span>
+  <!-- SKELETON LOADER STATE -->
+  <div class="projects-grid skeleton-grid" *ngIf="isLoading">
+     <div class="project-card skeleton-card" *ngFor="let s of [1,2,3,4,5,6]">
+        <div class="skeleton-img"></div>
+        <div class="skeleton-text title-sk"></div>
+        <div class="skeleton-text"></div>
+     </div>
+  </div>
+
+  <!-- ACTIVE DATA GRID -->
+  <div class="projects-grid" *ngIf="!isLoading">
+    <ng-container *ngIf="filteredProjects.length > 0; else noResults">
+      <div class="project-card" *ngFor="let project of filteredProjects; trackBy: trackById" [routerLink]="['/projects', project.slug]">
+        <div class="image-container">
+          <!-- Utilizing lazy loading universally -->
+          <img [src]="getThumbnail(project)" loading="lazy" alt="Project thumb">
+          <div class="overlay">
+            <i class="fas fa-search-plus"></i> <span class="overlay-text">VIEW_SCHEMATICS</span>
+          </div>
+        </div>
+        
+        <div class="project-info">
+          <h3>{{ project.title }}</h3>
+          <p class="category">> {{ project.category }}</p>
+          
+          <ul class="card-tags" *ngIf="project.tags?.length">
+              <li *ngFor="let t of project.tags | slice:0:3">{{ t }}</li>
+              <li *ngIf="project.tags && project.tags.length > 3">+{{project.tags.length - 3}}</li>
+          </ul>
         </div>
       </div>
-      <div class="project-info">
-        <h3>{{ project.title }}</h3>
-        <p class="category">> {{ project.category }}</p>
+    </ng-container>
+    
+    <ng-template #noResults>
+      <div class="empty-state">
+         <i class="fas fa-satellite-dish"></i>
+         <p>NO_MATCHING_SCHEMATICS_FOUND...</p>
       </div>
-    </div>
+    </ng-template>
   </div>
 </section>

@@ -1,0 +1,72 @@
+<section class="project-details-section container" *ngIf="project$ | async as project">
+  <div class="nav-controls">
+    <a routerLink="/projects" class="back-link"><i class="fas fa-arrow-left"></i> BACK_TO_DIRECTORY</a>
+    
+    <div class="pagination">
+      <button class="nav-btn" [disabled]="!hasPrev" (click)="navigateTo('prev')">
+        <i class="fas fa-chevron-left"></i> PREV_SCHEMATIC
+      </button>
+      <span class="divider">|</span>
+      <button class="nav-btn" [disabled]="!hasNext" (click)="navigateTo('next')">
+        NEXT_SCHEMATIC <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="details-card">
+    <div class="details-header">
+      <h1 class="project-title">{{ project.title }}</h1>
+      <div class="category-badge">{{ project.category }}</div>
+    </div>
+    
+    <div class="line-deco"></div>
+
+    <div class="metadata">
+        <div class="meta-item" *ngIf="project.createdAt">
+            <span class="label">> LOG_DATE</span>
+            <span class="value">{{ project.createdAt | date:'mediumDate' }}</span>
+        </div>
+        <div class="meta-item tech-stack" *ngIf="project.technologies?.length">
+            <span class="label">> CORE_TECH</span>
+            <span class="value">{{ project.technologies.join(', ') }}</span>
+        </div>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="gallery-grid" *ngIf="project.media?.length">
+        <div class="gallery-item" *ngFor="let m of project.media; let i = index" (click)="openGallery(i)">
+            <img *ngIf="m.type === 'image'" [src]="m.thumbnail || m.url" alt="Media item">
+            <video *ngIf="m.type === 'video'" [src]="m.url" muted></video>
+            
+            <div class="pdf-proxy" *ngIf="m.type === 'pdf'">
+                <i class="fas fa-file-pdf"></i>
+                <span>PDF Document</span>
+            </div>
+            
+            <div class="cad-proxy" *ngIf="m.type === 'cad'">
+                <i class="fas fa-cube"></i>
+                <span>CAD Render</span>
+            </div>
+
+            <div class="overlay">
+                <i class="fas fa-search-plus"></i> <span class="overlay-text">EXPAND</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Description -->
+    <div class="project-description">
+       <h3>> PROJECT_SPECIFICATIONS</h3>
+       <p>{{ project.description }}</p>
+    </div>
+
+    <!-- Tags -->
+    <div class="tag-section" *ngIf="project.tags?.length">
+      <span class="tech-tag" *ngFor="let tag of project.tags">{{ tag }}</span>
+    </div>
+
+  </div>
+
+  <!-- Decoupled Media Viewer mapped to array -->
+  <app-media-viewer #mediaViewer [mediaList]="project.media"></app-media-viewer>
+</section>

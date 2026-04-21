@@ -1,21 +1,39 @@
 import { Component, OnInit } from '@angular/core';
+import { AboutService } from '../../../../core/services/about.service';
+import { About } from '../../../../core/models/domain.models';
+import { Observable } from 'rxjs';
+import { map, shareReplay, tap } from 'rxjs/operators';
+import { SeoService } from '../../../../core/services/seo.service';
 
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
-  styleUrls: ['./about.component.css']
+  styleUrls: ['./about.component.scss']
 })
 export class AboutComponent implements OnInit {
-  aboutData = {
-    description: 'Senior structural engineer with over 10 years of experience designing and analyzing complex civil infrastructures...',
-    skills: ['Structural Analysis', 'Load Testing', 'Seismic Design', 'Project Management'],
-    tools: ['AutoCAD', 'Revit', 'ETABS', 'SAP2000', 'STAAD.Pro'],
-    resumeUrl: '/assets/resume.pdf'
-  };
+  aboutData$!: Observable<About | null>;
 
-  constructor() { }
+  constructor(private aboutService: AboutService, private seoService: SeoService) { }
 
   ngOnInit(): void {
-    // Fetch from API via AboutService
+    // Initial sync
+    this.seoService.generateTags({
+      title: 'Systems About',
+      description: 'Discover the technical software stacks and core engineering skills behind the architecture.'
+    });
+
+    this.aboutData$ = this.aboutService.getAbout().pipe(
+      tap(res => {
+         if (res && res.success && res.data) {
+            this.seoService.generateTags({
+               title: 'Systems About',
+               // Slice string properly for neat SEO metatag injection
+               description: res.data.description.substring(0, 150) + '...'
+            });
+         }
+      }),
+      map(res => res.success ? res.data : null),
+      shareReplay(1)
+    );
   }
 }

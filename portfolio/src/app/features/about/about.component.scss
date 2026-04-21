@@ -1,0 +1,162 @@
+.about-section {
+  padding: 100px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.blueprint-card {
+  border: 1px solid var(--blueprint-line-thick, rgba(51, 153, 255, 0.5));
+  background: var(--bg-value, rgba(13, 26, 38, 0.85));
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: fadeUp 1s ease-out;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.blueprint-card::before, .blueprint-card::after {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border: 1px solid var(--primary-color, #ffb31a);
+}
+
+.blueprint-card::before { top: -5px; left: -5px; border-right: none; border-bottom: none; }
+.blueprint-card::after { bottom: -5px; right: -5px; border-left: none; border-top: none; }
+
+.section-title {
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  letter-spacing: 3px;
+}
+
+.line-deco {
+  height: 2px;
+  width: 100%;
+  background: var(--blueprint-line-thick, rgba(51, 153, 255, 0.5));
+  margin-bottom: 30px;
+}
+
+/* Grid Layout Architecture */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: start;
+}
+
+.description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: 30px;
+}
+
+.inline-btn {
+  font-size: 0.9rem;
+  padding: 12px 25px;
+  background: transparent;
+  border: 1px solid var(--primary-color, #ffb31a);
+  color: var(--primary-color, #ffb31a);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.inline-btn::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: -100%;
+  background: var(--primary-color, #ffb31a);
+  z-index: -1;
+  transition: all 0.3s ease;
+}
+
+.inline-btn:hover {
+  color: var(--bg-value, #000);
+}
+
+.inline-btn:hover::after {
+  left: 0;
+}
+
+.spec-block {
+  margin-bottom: 35px;
+}
+
+.spec-block h3 {
+  color: var(--primary-color, #ffb31a);
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  border-bottom: 1px dashed var(--blueprint-line-thick, rgba(51, 153, 255, 0.5));
+  padding-bottom: 8px;
+}
+
+.tag-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Animated Skill Tags */
+.tech-tag {
+  background: rgba(51, 153, 255, 0.05);
+  border: 1px solid var(--blueprint-line-thick, rgba(51, 153, 255, 0.3));
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  opacity: 0; /* Initiates staggered entrance */
+  animation: tagPopIn 0.5s ease-out forwards;
+}
+
+.tech-tag:hover {
+  transform: translateY(-5px) scale(1.05);
+  border-color: var(--primary-color, #ffb31a);
+  box-shadow: 0 5px 15px rgba(255, 179, 26, 0.2);
+  background: rgba(255, 179, 26, 0.05);
+  color: var(--primary-color, #ffb31a);
+  cursor: default;
+}
+
+@keyframes tagPopIn {
+  0% { opacity: 0; transform: scale(0.8) translateY(10px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Responsive Mapping */
+@media (max-width: 992px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .blueprint-card {
+    padding: 25px;
+  }
+  .tag-list {
+    gap: 8px;
+  }
+  .tech-tag {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+}

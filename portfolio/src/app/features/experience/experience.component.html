@@ -1,0 +1,37 @@
+<section id="experience" class="experience-section container">
+  <div class="card-header">
+    <h2 class="section-title">CAREER_TRAJECTORY()</h2>
+    <div class="line-deco"></div>
+  </div>
+
+  <div class="timeline" *ngIf="experiences.length > 0; else noExperience">
+    <div class="timeline-line"></div>
+    
+    <!-- Timeline dynamic iterations -->
+    <div class="timeline-item" *ngFor="let exp of experiences; let i = index" #timelineItem 
+         [ngClass]="{'left': i % 2 === 0, 'right': i % 2 !== 0}">
+      <div class="timeline-node"><i class="fas fa-circle"></i></div>
+      
+      <div class="timeline-content blueprint-card">
+        <div class="exp-header">
+          <h3 class="role">{{ exp.role }}</h3>
+          <span class="duration">> [ {{ exp.duration }} ]</span>
+        </div>
+        
+        <div class="company-loc">
+          <span class="company"><i class="fas fa-building"></i> {{ exp.company }}</span>
+          <span class="location"><i class="fas fa-map-marker-alt"></i> {{ exp.location }}</span>
+        </div>
+        
+        <p class="description">{{ exp.description }}</p>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noExperience>
+    <div class="empty-state">
+      <i class="fas fa-file-contract"></i>
+      <p>AWAITING_WORK_HISTORY_DATA...</p>
+    </div>
+  </ng-template>
+</section>

@@ -1,0 +1,43 @@
+<section id="blog-list" class="blog-section container">
+  <div class="card-header">
+    <h2 class="section-title">FIELD_REPORTS()</h2>
+    <div class="line-deco"></div>
+  </div>
+
+  <div class="loading-state empty-state" *ngIf="isLoading">
+    <i class="fas fa-spinner fa-spin"></i>
+    <p>FETCHING_DATA...</p>
+  </div>
+
+  <div class="blog-grid" *ngIf="!isLoading">
+    <div class="blog-card blueprint-card" *ngFor="let blog of paginatedBlogs" [routerLink]="['/blog', blog.slug]">
+      <div class="card-img">
+         <img [src]="blog.coverImage || 'assets/placeholder.jpg'" alt="{{ blog.title }}">
+      </div>
+      <div class="card-content">
+         <div class="meta-row">
+            <span class="date">> LOG_DATE: {{ blog.createdAt | date:'mediumDate' }}</span>
+         </div>
+         <h3 class="title">{{ blog.title }}</h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty state fallback if zero blogs imported -->
+  <div class="empty-state" *ngIf="!isLoading && blogs.length === 0">
+      <i class="fas fa-database"></i>
+      <p>DATABASE_EMPTY: NO_REPORTS_AVAILABLE...</p>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div class="pagination-controls" *ngIf="totalPages > 1">
+     <button class="nav-btn" [disabled]="currentPage === 1" (click)="prevPage()">&lt; PREV</button>
+     
+     <button class="nav-btn num-btn" *ngFor="let p of [].constructor(totalPages); let i = index"
+             [class.active]="currentPage === i + 1" (click)="setPage(i + 1)">
+       {{ i + 1 }}
+     </button>
+
+     <button class="nav-btn" [disabled]="currentPage === totalPages" (click)="nextPage()">NEXT &gt;</button>
+  </div>
+</section>
