@@ -11,6 +11,7 @@ import authRoutes from './modules/auth/auth.route';
 import settingsRoutes from './modules/settings/settings.route';
 import projectRoutes from './modules/projects/projects.route';
 import uploadRoutes from './modules/media/upload.route';
+import seedAdmin from './config/seed';
 
 dotenv.config();
 
@@ -28,7 +29,10 @@ app.use(morgan('dev'));
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/portfolioDb', {
   autoIndex: true,
 })
-.then(() => console.log('MongoDB connected'))
+.then(async () => {
+  console.log('MongoDB connected');
+  await seedAdmin();
+})
 .catch(err => console.error('MongoDB connection error:', err));
 
 // Routes Configuration
