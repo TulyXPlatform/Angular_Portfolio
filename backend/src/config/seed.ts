@@ -12,19 +12,7 @@ dotenv.config();
 
 const seedAdmin = async () => {
   try {
-    // 1. Seed Admin
-    const adminExists = await User.findOne({ role: 'admin' });
-    if (!adminExists) {
-      const adminUser = new User({
-        username: process.env.ADMIN_USERNAME || 'admin',
-        password: process.env.ADMIN_PASSWORD || 'admin123',
-        role: 'admin'
-      });
-      await adminUser.save();
-      console.log('Admin user seeded successfully.');
-    }
-
-    // 2. Seed Hero
+    // 1. Seed Hero (Admin seeding removed, handled by login controller)
     const heroExists = await Hero.findOne();
     if (!heroExists) {
       await Hero.create({
