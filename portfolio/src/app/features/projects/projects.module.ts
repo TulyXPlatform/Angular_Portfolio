@@ -19,6 +19,9 @@ const routes: Routes = [
     CommonModule,
     SharedModule,
     RouterModule.forChild(routes)
+  ],
+  exports: [
+    ProjectsComponent
   ]
 })
 export class ProjectsModule { }

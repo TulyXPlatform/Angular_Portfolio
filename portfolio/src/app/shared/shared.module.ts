@@ -1,17 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MediaViewerComponent } from './components/media-viewer/media-viewer.component';
+import { SafePipe } from './pipes/safe.pipe';
 
 @NgModule({
   declarations: [
-    MediaViewerComponent
+    MediaViewerComponent,
+    SafePipe
   ],
   imports: [
     CommonModule
   ],
   exports: [
     CommonModule,
-    MediaViewerComponent
+    MediaViewerComponent,
+    SafePipe
   ]
 })
 export class SharedModule { }

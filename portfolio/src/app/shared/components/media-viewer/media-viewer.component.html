@@ -31,14 +31,12 @@
           <video controls autoplay [src]="currentMedia.url" preload="metadata"></video>
       </div>
       
-      <!-- PDF (Using ng2-pdf-viewer natively) -->
+      <!-- PDF (Using native iframe viewer) -->
       <div *ngSwitchCase="'pdf'" class="optimized-media-layer pdf-wrap">
-          <pdf-viewer 
-             [src]="currentMedia.url" 
-             [original-size]="false" 
-             [zoom]="1"
-             style="width: 100%; height: 90vh;">
-          </pdf-viewer>
+          <iframe 
+             [src]="currentMedia.url | safe" 
+             style="width: 100%; height: 90vh; border: none;">
+          </iframe>
       </div>
 
       <!-- CAD (fallback proxy logic) -->

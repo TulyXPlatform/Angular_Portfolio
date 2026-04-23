@@ -1,0 +1,13 @@
+/* Global Portfolio Styles */
+:root {
+  --primary: #3182ce;
+  --bg-dark: #0a192f;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-dark);
+  color: white;
+  font-family: 'Inter', sans-serif;
+}
