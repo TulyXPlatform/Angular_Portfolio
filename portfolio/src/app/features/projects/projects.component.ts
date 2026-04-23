@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectService } from '../../../../core/services/project.service';
-import { Project } from '../../../../core/models/domain.models';
-import { SeoService } from '../../../../core/services/seo.service';
+import { ProjectService } from '../../core/services/project.service';
+import { Project, ApiResponse } from '../../core/models/domain.models';
+import { SeoService } from '../../core/services/seo.service';
 
 @Component({
   selector: 'app-projects',
@@ -30,7 +30,7 @@ export class ProjectsComponent implements OnInit {
     });
 
     this.projectService.getProjects().subscribe({
-      next: (res) => {
+      next: (res: ApiResponse<Project[]>) => {
         if (res.success && res.data) {
           this.projects = res.data;
           this.filteredProjects = [...this.projects];

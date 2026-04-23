@@ -7,12 +7,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
+import { ProjectManagerComponent } from './features/projects/project-manager.component';
+import { SettingsManagerComponent } from './features/settings/settings-manager.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    ProjectManagerComponent,
+    SettingsManagerComponent
   ],
   imports: [
     BrowserModule,

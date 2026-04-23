@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BlogService } from '../../../../core/services/blog.service';
-import { Blog } from '../../../../core/models/domain.models';
+import { BlogService } from '../../../core/services/blog.service';
+import { Blog, ApiResponse } from '../../../core/models/domain.models';
 
 @Component({
   selector: 'app-blog-list',
@@ -19,7 +19,7 @@ export class BlogListComponent implements OnInit {
   constructor(private blogService: BlogService) { }
 
   ngOnInit(): void {
-    this.blogService.getBlogs().subscribe(res => {
+    this.blogService.getBlogs().subscribe((res: ApiResponse<Blog[]>) => {
       if (res.success && res.data) {
         this.blogs = res.data;
         this.totalPages = Math.ceil(this.blogs.length / this.pageSize);

@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
-import { ExperienceService } from '../../../../core/services/experience.service';
-import { Experience } from '../../../../core/models/domain.models';
-import { SeoService } from '../../../../core/services/seo.service';
+import { ExperienceService } from '../../core/services/experience.service';
+import { Experience, ApiResponse } from '../../core/models/domain.models';
+import { SeoService } from '../../core/services/seo.service';
 
 @Component({
   selector: 'app-experience',
@@ -23,7 +23,7 @@ export class ExperienceComponent implements OnInit, AfterViewInit {
     });
 
     // Fetch dynamic content without hardcoding any defaults
-    this.experienceService.getExperience().subscribe(res => {
+    this.experienceService.getExperience().subscribe((res: ApiResponse<Experience[]>) => {
       if (res.success && res.data) {
         this.experiences = res.data;
       }

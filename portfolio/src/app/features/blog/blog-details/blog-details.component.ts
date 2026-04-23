@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title, Meta, DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { BlogService } from '../../../../core/services/blog.service';
-import { Blog } from '../../../../core/models/domain.models';
+import { BlogService } from '../../../core/services/blog.service';
+import { Blog, ApiResponse } from '../../../core/models/domain.models';
 import { switchMap, tap, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
@@ -29,7 +29,7 @@ export class BlogDetailsComponent implements OnInit {
         const slug = params.get('slug');
         if (slug) {
           return this.blogService.getBlogBySlug(slug).pipe(
-            tap(res => {
+            tap((res: ApiResponse<Blog>) => {
               if (res.success && res.data) {
                 const blog = res.data;
                 this.updateMetaTags(blog);
@@ -37,7 +37,7 @@ export class BlogDetailsComponent implements OnInit {
                 this.safeHtmlContent = this.sanitizer.bypassSecurityTrustHtml(blog.content);
               }
             }),
-            map(res => res.success ? res.data : null)
+            map((res: ApiResponse<Blog>) => res.success ? res.data : null)
           );
         }
         return of(null);

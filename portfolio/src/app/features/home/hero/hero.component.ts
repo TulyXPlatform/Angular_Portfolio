@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HeroService } from '../../../../core/services/hero.service';
-import { Hero } from '../../../../core/models/domain.models';
+import { HeroService } from '../../../core/services/hero.service';
+import { Hero, ApiResponse } from '../../../core/models/domain.models';
 import { Observable } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
-import { SeoService } from '../../../../core/services/seo.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 @Component({
   selector: 'app-hero',
@@ -18,7 +18,7 @@ export class HeroComponent implements OnInit {
   ngOnInit(): void {
     // Fetch dynamic content + hook universal SEO
     this.heroData$ = this.heroService.getHero().pipe(
-      tap(res => {
+      tap((res: ApiResponse<Hero>) => {
         if (res && res.success && res.data) {
            this.seoService.generateTags({
              title: res.data.title || 'Home Base',
@@ -33,7 +33,7 @@ export class HeroComponent implements OnInit {
            });
         }
       }),
-      map(res => res.success ? res.data : null),
+      map((res: ApiResponse<Hero>) => res.success ? res.data : null),
       shareReplay(1)
     );
   }

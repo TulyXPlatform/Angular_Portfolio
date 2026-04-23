@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { ContactService } from '../../../../core/services/contact.service';
-import { ContactData } from '../../../../core/models/domain.models';
-import { SeoService } from '../../../../core/services/seo.service';
+import { ContactService } from '../../core/services/contact.service';
+import { ContactData, ApiResponse } from '../../core/models/domain.models';
+import { SeoService } from '../../core/services/seo.service';
 
 @Component({
   selector: 'app-contact',
@@ -45,7 +45,7 @@ export class ContactComponent implements OnInit {
   }
 
   private fetchContactData() {
-    this.contactService.getContactData().subscribe(res => {
+    this.contactService.getContactData().subscribe((res: ApiResponse<ContactData>) => {
       if (res.success && res.data) {
         this.contactData = res.data;
         if (this.contactData.mapEmbedUrl) {
@@ -65,7 +65,7 @@ export class ContactComponent implements OnInit {
     this.submitStatus = 'idle';
 
     this.contactService.submitInquiry(this.contactForm.value).subscribe({
-      next: (res) => {
+      next: (res: ApiResponse<any>) => {
         this.isSubmitting = false;
         if (res.success) {
           this.submitStatus = 'success';

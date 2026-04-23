@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AboutService } from '../../../../core/services/about.service';
-import { About } from '../../../../core/models/domain.models';
+import { AboutService } from '../../core/services/about.service';
+import { About, ApiResponse } from '../../core/models/domain.models';
 import { Observable } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
-import { SeoService } from '../../../../core/services/seo.service';
+import { SeoService } from '../../core/services/seo.service';
 
 @Component({
   selector: 'app-about',
@@ -23,7 +23,7 @@ export class AboutComponent implements OnInit {
     });
 
     this.aboutData$ = this.aboutService.getAbout().pipe(
-      tap(res => {
+      tap((res: ApiResponse<About>) => {
          if (res && res.success && res.data) {
             this.seoService.generateTags({
                title: 'Systems About',
@@ -32,7 +32,7 @@ export class AboutComponent implements OnInit {
             });
          }
       }),
-      map(res => res.success ? res.data : null),
+      map((res: ApiResponse<About>) => res.success ? res.data : null),
       shareReplay(1)
     );
   }

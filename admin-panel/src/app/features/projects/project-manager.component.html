@@ -4,7 +4,9 @@
 </div>
 
 <div class="projects-table-container">
-    <table class="data-table">
+    <div *ngIf="isLoading" class="loading-state">Syncing Database...</div>
+    
+    <table class="data-table" *ngIf="!isLoading">
         <thead>
             <tr>
                 <th>Identifier/Title</th>
@@ -15,23 +17,21 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr *ngFor="let project of projects">
                 <td>
-                    <strong>Bridge Structural Alpha</strong>
-                    <div class="text-small">INFRA-2023-01</div>
+                    <strong>{{ project.title }}</strong>
+                    <div class="text-small">{{ project.slug }}</div>
                 </td>
-                <td><span class="chip">Infrastructure</span></td>
+                <td><span class="chip">{{ project.category }}</span></td>
                 <td>
                     <div class="media-icons">
-                        <i class="fas fa-image" title="3 Images"></i>
-                        <i class="fas fa-file-pdf" title="1 PDF"></i>
-                        <i class="fas fa-cube" title="1 CAD Proxy"></i>
+                        <i class="fas fa-image" [title]="project.media?.length + ' Assets'"></i>
                     </div>
                 </td>
-                <td><span class="status active">PUBLISHED</span></td>
+                <td><span class="status" [class.active]="project.featured">{{ project.featured ? 'FEATURED' : 'ACTIVE' }}</span></td>
                 <td>
-                    <button class="icon-btn edit"><i class="fas fa-edit"></i></button>
-                    <button class="icon-btn delete"><i class="fas fa-trash"></i></button>
+                    <button class="icon-btn edit" (click)="openProjectModal(project)"><i class="fas fa-edit"></i></button>
+                    <button class="icon-btn delete" (click)="deleteProject(project._id)"><i class="fas fa-trash"></i></button>
                 </td>
             </tr>
         </tbody>

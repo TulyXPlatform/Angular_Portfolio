@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProjectService } from '../../../../core/services/project.service';
-import { Project } from '../../../../core/models/domain.models';
+import { ProjectService } from '../../../core/services/project.service';
+import { Project, ApiResponse } from '../../../core/models/domain.models';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { MediaViewerComponent } from '../../../../shared/components/media-viewer/media-viewer.component';
+import { MediaViewerComponent } from '../../../shared/components/media-viewer/media-viewer.component';
 
 @Component({
   selector: 'app-project-details',
@@ -26,7 +26,7 @@ export class ProjectDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     // 1. Fetch all projects sequentially to know current index for Prev/Next
-    this.projectService.getProjects().subscribe(res => {
+    this.projectService.getProjects().subscribe((res: ApiResponse<Project[]>) => {
       if (res.success && res.data) {
         this.allProjects = res.data;
         this.updateIndex();
@@ -39,7 +39,7 @@ export class ProjectDetailsComponent implements OnInit {
         const slug = params.get('slug');
         if (slug) {
           return this.projectService.getProjectBySlug(slug).pipe(
-            map(res => res.success ? res.data : null),
+            map((res: ApiResponse<Project>) => res.success ? res.data : null),
             tap(() => this.updateIndex())
           );
         }

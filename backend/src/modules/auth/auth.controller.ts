@@ -1,45 +1,38 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import User from './user.model';
 import { generateToken } from '../../utils/jwt';
+import asyncHandler from '../../utils/asyncHandler';
+import AppError from '../../utils/AppError';
 
-export const login = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const { username, password } = req.body;
+export const login = asyncHandler(async (req: Request, res: Response) => {
+  const { username, password } = req.body;
 
-    const user = await User.findOne({ username });
-    if (!user) {
-      return res.status(401).json({ success: false, message: 'Invalid credentials' });
-    }
-
-    const isMatch = await user.comparePassword(password);
-    if (!isMatch) {
-      return res.status(401).json({ success: false, message: 'Invalid credentials' });
-    }
-
-    const token = generateToken({ id: user._id, username: user.username, role: user.role });
-
-    res.status(200).json({
-      success: true,
-      token,
-      user: {
-        id: user._id,
-        username: user.username,
-        role: user.role
-      }
-    });
-  } catch (error) {
-    next(error);
+  if (!username || !password) {
+    throw new AppError('Please provide username and password', 400);
   }
-};
 
-export const getMe = async (req: any, res: Response, next: NextFunction) => {
-  try {
-    const user = await User.findById(req.user.id).select('-password');
-    if (!user) {
-      return res.status(404).json({ success: false, message: 'User not found' });
-    }
-    res.status(200).json({ success: true, user });
-  } catch (error) {
-    next(error);
+  const user = await User.findOne({ username });
+  if (!user || !(await user.comparePassword(password))) {
+    throw new AppError('Invalid credentials', 401);
   }
-};
+
+  const token = generateToken({ id: user._id, username: user.username, role: user.role });
+
+  res.status(200).json({
+    success: true,
+    token,
+    user: {
+      id: user._id,
+      username: user.username,
+      role: user.role
+    }
+  });
+});
+
+export const getMe = asyncHandler(async (req: any, res: Response) => {
+  const user = await User.findById(req.user.id).select('-password');
+  if (!user) {
+    throw new AppError('User not found', 404);
+  }
+  res.status(200).json({ success: true, user });
+});

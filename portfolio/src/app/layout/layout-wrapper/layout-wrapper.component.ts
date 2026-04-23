@@ -7,9 +7,11 @@ import { ThemeService } from '../../core/services/theme.service';
   styleUrls: ['./layout-wrapper.component.scss']
 })
 export class LayoutWrapperComponent implements OnInit {
-  theme$ = this.themeService.theme$;
+  theme$;
 
-  constructor(private themeService: ThemeService) {}
+  constructor(private themeService: ThemeService) {
+    this.theme$ = this.themeService.theme$;
+  }
 
   ngOnInit(): void {
     // Attempt to load remote config without reloading page
