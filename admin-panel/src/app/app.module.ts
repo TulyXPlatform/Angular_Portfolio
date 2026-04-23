@@ -9,6 +9,12 @@ import { LoginComponent } from './features/auth/login/login.component';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { ProjectManagerComponent } from './features/projects/project-manager.component';
 import { SettingsManagerComponent } from './features/settings/settings-manager.component';
+import { HeroManagerComponent } from './features/hero/hero-manager.component';
+import { AboutManagerComponent } from './features/about/about-manager.component';
+import { ExperienceManagerComponent } from './features/experience/experience-manager.component';
+import { BlogManagerComponent } from './features/blog/blog-manager.component';
+import { InquiryManagerComponent } from './features/inquiries/inquiry-manager.component';
+import { ContactManagerComponent } from './features/contact/contact-manager.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +22,13 @@ import { SettingsManagerComponent } from './features/settings/settings-manager.c
     LoginComponent,
     AdminLayoutComponent,
     ProjectManagerComponent,
-    SettingsManagerComponent
+    SettingsManagerComponent,
+    HeroManagerComponent,
+    AboutManagerComponent,
+    ExperienceManagerComponent,
+    BlogManagerComponent,
+    InquiryManagerComponent,
+    ContactManagerComponent
   ],
   imports: [
     BrowserModule,

@@ -1,35 +1,86 @@
-<div class="admin-wrapper">
+<div class="admin-layout">
   <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="brand">
-      <h2><i class="fas fa-drafting-compass"></i> ENG_CMS</h2>
+  <aside class="admin-sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon"><i class="fas fa-drafting-compass"></i></div>
+      <div class="brand-text">
+        <span class="brand-name">TulyX</span>
+        <span class="brand-status">Engineering CMS</span>
+      </div>
     </div>
-    <nav class="nav-menu">
-      <a routerLink="/dashboard" routerLinkActive="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-      <a routerLink="/projects" routerLinkActive="active"><i class="fas fa-project-diagram"></i> Project Manager</a>
-      <a routerLink="/settings" routerLinkActive="active"><i class="fas fa-cog"></i> Platform Settings</a>
-      <a routerLink="/media" routerLinkActive="active"><i class="fas fa-images"></i> Media Library</a>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section">Main</div>
+      <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
+        <i class="fas fa-chart-line"></i> <span>Dashboard</span>
+      </a>
+
+      <div class="nav-section">Content</div>
+      <a routerLink="/hero" routerLinkActive="active" class="nav-item">
+        <i class="fas fa-home"></i> <span>Hero Section</span>
+      </a>
+      <a routerLink="/about" routerLinkActive="active" class="nav-item">
+        <i class="fas fa-user-tie"></i> <span>About Profile</span>
+      </a>
+      <a routerLink="/projects" routerLinkActive="active" class="nav-item">
+        <i class="fas fa-project-diagram"></i> <span>Project Manager</span>
+      </a>
+      <a routerLink="/experience" routerLinkActive="active" class="nav-item">
+        <i class="fas fa-history"></i> <span>Career History</span>
+      </a>
+      <a routerLink="/blog" routerLinkActive="active" class="nav-item">
+        <i class="fas fa-newspaper"></i> <span>Insights / Blog</span>
+      </a>
+
+      <div class="nav-section">Interactions</div>
+      <a routerLink="/inquiries" routerLinkActive="active" class="nav-item">
+        <i class="fas fa-envelope-open-text"></i> <span>Inquiries</span>
+        <span class="badge">3</span>
+      </a>
+      <a routerLink="/contact" routerLinkActive="active" class="nav-item">
+        <i class="fas fa-id-card"></i> <span>Contact Info</span>
+      </a>
+
+      <div class="nav-section">System</div>
+      <a routerLink="/settings" routerLinkActive="active" class="nav-item">
+        <i class="fas fa-sliders-h"></i> <span>Site Settings</span>
+      </a>
     </nav>
-    <div class="sidebar-footer">
-      <button class="logout-btn" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Terminate Session</button>
+
+    <div class="sidebar-user">
+      <div class="user-avatar">A</div>
+      <div class="user-info">
+        <span class="user-name">Admin_User</span>
+        <span class="user-role">System Architect</span>
+      </div>
+      <button class="logout-btn" (click)="logout()" title="Logout">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
     </div>
   </aside>
 
   <!-- Main Content -->
-  <main class="main-content">
-    <header class="topbar">
-        <div class="topbar-search">
-            <i class="fas fa-search"></i>
-            <input type="text" placeholder="Query database...">
+  <div class="admin-main">
+    <header class="admin-header">
+      <div class="header-left">
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search system resources...">
         </div>
-        <div class="topbar-user">
-            <span>Admin_01</span>
-            <div class="avatar">A</div>
+      </div>
+      <div class="header-right">
+        <button class="header-icon-btn"><i class="fas fa-bell"></i></button>
+        <button class="header-icon-btn"><i class="fas fa-question-circle"></i></button>
+        <div class="header-divider"></div>
+        <div class="current-date">
+          <i class="far fa-calendar-alt"></i>
+          <span>Oct 23, 2026</span>
         </div>
+      </div>
     </header>
-    <div class="content-area">
-        <!-- Dashboard/Project components will be routed here -->
-        <router-outlet></router-outlet>
-    </div>
-  </main>
+
+    <main class="admin-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
 </div>
