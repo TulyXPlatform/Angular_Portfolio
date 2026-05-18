@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { HeroService } from '../../core/services/hero.service';
+import { UploadService } from '../../core/services/upload.service';
 
 @Component({
   selector: 'app-hero-manager',
@@ -12,7 +13,7 @@ import { HeroService } from '../../core/services/hero.service';
           <p>Update your portfolio's main landing message and background media.</p>
         </div>
         <div class="action-section">
-          <button class="btn btn-primary" [disabled]="isLoading || heroForm.invalid" (click)="saveHero()">
+          <button class="btn btn-primary" [disabled]="isLoading || heroForm.invalid || isUploading" (click)="saveHero()">
             <i class="fas fa-spinner fa-spin" *ngIf="isSaving"></i> 
             {{ isSaving ? 'Saving...' : 'Save Changes' }}
           </button>
@@ -56,6 +57,17 @@ import { HeroService } from '../../core/services/hero.service';
                <div class="form-group">
                  <label>Engineer Photo URL (Avatar)</label>
                  <input type="text" formControlName="avatarUrl" class="form-control" placeholder="URL to photo">
+               </div>
+
+               <div class="form-group">
+                 <label>Or Upload Photo</label>
+                 <div class="file-upload-wrapper">
+                   <input type="file" (change)="onFileSelected($event)" accept="image/*" class="file-input" id="avatar-upload" [disabled]="isUploading">
+                   <label for="avatar-upload" class="file-upload-btn">
+                     <i class="fas" [class.fa-cloud-upload-alt]="!isUploading" [class.fa-spinner]="isUploading" [class.fa-spin]="isUploading"></i>
+                     {{ isUploading ? 'Uploading...' : 'Choose Image File' }}
+                   </label>
+                 </div>
                </div>
                
                <div class="media-preview" *ngIf="heroForm.get('avatarUrl')?.value" style="text-align: center; margin-bottom: 20px;">
@@ -121,16 +133,39 @@ import { HeroService } from '../../core/services/hero.service';
     .mt-2 { margin-top: 10px; }
     .range-val { font-size: 12px; color: #718096; margin-top: 5px; text-align: right; }
     .loading-spinner { text-align: center; padding: 40px; color: #718096; font-size: 18px; }
+
+    .file-upload-wrapper { position: relative; margin-bottom: 15px; }
+    .file-input { display: none; }
+    .file-upload-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px;
+      background: #edf2f7;
+      border: 2px dashed #cbd5e0;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      color: #4a5568;
+      transition: all 0.2s ease;
+    }
+    .file-upload-btn:hover { background: #e2e8f0; border-color: #a0aec0; color: #2d3748; }
   `]
 })
 export class HeroManagerComponent implements OnInit {
   heroForm!: FormGroup;
   isLoading = true;
   isSaving = false;
+  isUploading = false;
   successMessage = '';
   errorMessage = '';
 
-  constructor(private fb: FormBuilder, private heroService: HeroService) {}
+  constructor(
+    private fb: FormBuilder, 
+    private heroService: HeroService,
+    private uploadService: UploadService
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -190,6 +225,35 @@ export class HeroManagerComponent implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.isUploading = true;
+      this.successMessage = '';
+      this.errorMessage = '';
+
+      this.uploadService.uploadFile(file).subscribe({
+        next: (res) => {
+          if (res.success && res.data) {
+            this.heroForm.patchValue({
+              avatarUrl: res.data.url
+            });
+            this.successMessage = 'Photo uploaded successfully!';
+            setTimeout(() => this.successMessage = '', 3000);
+          } else {
+            this.errorMessage = 'Failed to upload photo.';
+          }
+          this.isUploading = false;
+        },
+        error: (err) => {
+          this.isUploading = false;
+          this.errorMessage = 'Error uploading file: ' + (err.error?.message || err.message);
+          console.error(err);
+        }
+      });
+    }
   }
 
   saveHero() {
