@@ -7,6 +7,7 @@ import { ProjectsListModule } from '../projects/projects-list.module';
 import { AboutModule } from '../about/about.module';
 import { ExperienceModule } from '../experience/experience.module';
 import { ContactModule } from '../contact/contact.module';
+import { BlogListModule } from '../blog/blog-list.module';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }
@@ -23,6 +24,7 @@ const routes: Routes = [
     AboutModule,
     ExperienceModule,
     ContactModule,
+    BlogListModule,
     RouterModule.forChild(routes)
   ]
 })

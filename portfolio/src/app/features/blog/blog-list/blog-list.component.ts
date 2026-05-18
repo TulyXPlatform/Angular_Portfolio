@@ -22,7 +22,12 @@ export class BlogListComponent implements OnInit {
     this.blogService.getBlogs().subscribe({
       next: (res: ApiResponse<Blog[]>) => {
         if (res.success && res.data) {
-          this.blogs = res.data;
+          // Sort chronologically: newest logs first
+          this.blogs = res.data.sort((a, b) => {
+            const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+            const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+            return dateB - dateA;
+          });
           this.totalPages = Math.ceil(this.blogs.length / this.pageSize);
         }
         this.isLoading = false;
