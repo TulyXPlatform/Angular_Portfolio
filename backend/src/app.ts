@@ -22,6 +22,7 @@ import seedAdmin from './config/seed';
 dotenv.config();
 
 const app: Application = express();
+app.enable('trust proxy');
 
 // Middleware
 app.use(express.json());
