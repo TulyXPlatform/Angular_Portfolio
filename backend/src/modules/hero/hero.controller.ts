@@ -5,6 +5,10 @@ import AppError from '../../utils/AppError';
 
 export const getHero = asyncHandler(async (req: Request, res: Response) => {
   const hero = await Hero.findOne();
+  if (hero && !hero.avatarUrl) {
+    hero.avatarUrl = 'https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&q=80';
+    await hero.save();
+  }
   res.status(200).json({ success: true, data: hero });
 });
 
