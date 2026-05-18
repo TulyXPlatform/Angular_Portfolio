@@ -15,6 +15,7 @@ import { ExperienceManagerComponent } from './features/experience/experience-man
 import { BlogManagerComponent } from './features/blog/blog-manager.component';
 import { InquiryManagerComponent } from './features/inquiries/inquiry-manager.component';
 import { ContactManagerComponent } from './features/contact/contact-manager.component';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,9 @@ import { ContactManagerComponent } from './features/contact/contact-manager.comp
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

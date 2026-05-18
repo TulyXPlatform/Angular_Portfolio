@@ -25,7 +25,7 @@
                 <td><span class="chip">{{ project.category }}</span></td>
                 <td>
                     <div class="media-icons">
-                        <i class="fas fa-image" [title]="project.media?.length + ' Assets'"></i>
+                        <i class="fas fa-image" [title]="(project.media?.length || 0) + ' Assets'"></i>
                     </div>
                 </td>
                 <td><span class="status" [class.active]="project.featured">{{ project.featured ? 'FEATURED' : 'ACTIVE' }}</span></td>
@@ -34,6 +34,66 @@
                     <button class="icon-btn delete" (click)="deleteProject(project._id)"><i class="fas fa-trash"></i></button>
                 </td>
             </tr>
+            <tr *ngIf="projects.length === 0">
+                <td colspan="5" class="text-center py-4 text-gray-500">No projects found. Add your first schematic.</td>
+            </tr>
         </tbody>
     </table>
+</div>
+
+<!-- Project Modal -->
+<div class="modal-overlay" *ngIf="showModal">
+  <div class="modal-content card">
+    <div class="card-header d-flex justify-between">
+       <h3>{{ editingId ? 'Edit Project' : 'New Project' }}</h3>
+       <button class="btn-icon" (click)="closeModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="projectForm" (ngSubmit)="saveProject()">
+         <div class="form-row">
+           <div class="form-group col">
+             <label>Project Title</label>
+             <input type="text" formControlName="title" class="form-control" placeholder="Bridge Alpha">
+           </div>
+           <div class="form-group col">
+             <label>Slug (URL Path)</label>
+             <input type="text" formControlName="slug" class="form-control" placeholder="bridge-alpha">
+           </div>
+         </div>
+         
+         <div class="form-row">
+           <div class="form-group col">
+             <label>Category</label>
+             <select formControlName="category" class="form-control">
+               <option value="Infrastructure">Infrastructure</option>
+               <option value="Residential">Residential</option>
+               <option value="Commercial">Commercial</option>
+             </select>
+           </div>
+           <div class="form-group col">
+             <label>Main Image URL</label>
+             <input type="text" formControlName="mediaUrl" class="form-control" placeholder="https://...">
+           </div>
+         </div>
+
+         <div class="form-group">
+           <label>Description</label>
+           <textarea formControlName="description" class="form-control" rows="4"></textarea>
+         </div>
+         
+         <div class="form-group">
+           <label>
+             <input type="checkbox" formControlName="featured"> Featured Project
+           </label>
+         </div>
+
+         <div class="modal-actions">
+           <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+           <button type="submit" class="btn btn-primary" [disabled]="projectForm.invalid || isSaving">
+             {{ isSaving ? 'Saving...' : 'Save Project' }}
+           </button>
+         </div>
+      </form>
+    </div>
+  </div>
 </div>
