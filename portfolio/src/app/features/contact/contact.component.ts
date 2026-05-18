@@ -45,12 +45,17 @@ export class ContactComponent implements OnInit {
   }
 
   private fetchContactData() {
-    this.contactService.getContactData().subscribe((res: ApiResponse<ContactData>) => {
-      if (res.success && res.data) {
-        this.contactData = res.data;
-        if (this.contactData.mapEmbedUrl) {
-           this.safeMapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.contactData.mapEmbedUrl);
+    this.contactService.getContactData().subscribe({
+      next: (res: ApiResponse<ContactData>) => {
+        if (res.success && res.data) {
+          this.contactData = res.data;
+          if (this.contactData.mapEmbedUrl) {
+             this.safeMapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.contactData.mapEmbedUrl);
+          }
         }
+      },
+      error: (err) => {
+        console.error('SSR or Client error fetching contact details:', err);
       }
     });
   }

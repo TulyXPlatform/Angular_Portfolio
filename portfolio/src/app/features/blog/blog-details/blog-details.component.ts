@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Title, Meta, DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { BlogService } from '../../../core/services/blog.service';
 import { Blog, ApiResponse } from '../../../core/models/domain.models';
-import { switchMap, tap, map } from 'rxjs/operators';
+import { switchMap, tap, map, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
 @Component({
@@ -25,7 +25,7 @@ export class BlogDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.blog$ = this.route.paramMap.pipe(
-      switchMap(params => {
+      switchMap((params): Observable<Blog | null> => {
         const slug = params.get('slug');
         if (slug) {
           return this.blogService.getBlogBySlug(slug).pipe(
@@ -37,7 +37,11 @@ export class BlogDetailsComponent implements OnInit {
                 this.safeHtmlContent = this.sanitizer.bypassSecurityTrustHtml(blog.content);
               }
             }),
-            map((res: ApiResponse<Blog>) => res.success ? res.data : null)
+            map((res: ApiResponse<Blog>) => res.success ? res.data : null),
+            catchError((err: any) => {
+              console.error('SSR or Client error loading blog details:', err);
+              return of(null);
+            })
           );
         }
         return of(null);

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AboutService } from '../../core/services/about.service';
 import { About, ApiResponse } from '../../core/models/domain.models';
-import { Observable } from 'rxjs';
-import { map, shareReplay, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, shareReplay, tap, catchError } from 'rxjs/operators';
 import { SeoService } from '../../core/services/seo.service';
 
 @Component({
@@ -33,6 +33,10 @@ export class AboutComponent implements OnInit {
          }
       }),
       map((res: ApiResponse<About>) => res.success ? res.data : null),
+      catchError(err => {
+        console.error('SSR or Client error loading About section data:', err);
+        return of(null);
+      }),
       shareReplay(1)
     );
   }

@@ -23,9 +23,14 @@ export class ExperienceComponent implements OnInit, AfterViewInit {
     });
 
     // Fetch dynamic content without hardcoding any defaults
-    this.experienceService.getExperience().subscribe((res: ApiResponse<Experience[]>) => {
-      if (res.success && res.data) {
-        this.experiences = res.data;
+    this.experienceService.getExperience().subscribe({
+      next: (res: ApiResponse<Experience[]>) => {
+        if (res.success && res.data) {
+          this.experiences = res.data;
+        }
+      },
+      error: (err) => {
+        console.error('SSR or Client error loading experience timeline:', err);
       }
     });
   }

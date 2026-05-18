@@ -53,9 +53,15 @@ import { BlogService } from '../../core/services/blog.service';
         </div>
         <div class="card-body">
           <form [formGroup]="blogForm" (ngSubmit)="saveBlog()">
-             <div class="form-group">
-               <label>Article Title</label>
-               <input type="text" formControlName="title" class="form-control" placeholder="Enter title...">
+             <div class="form-row">
+               <div class="form-group col">
+                 <label>Article Title</label>
+                 <input type="text" formControlName="title" (input)="onTitleChange()" class="form-control" placeholder="Enter title...">
+               </div>
+               <div class="form-group col">
+                 <label>Slug (URL Path)</label>
+                 <input type="text" formControlName="slug" class="form-control" placeholder="e.g. my-first-article">
+               </div>
              </div>
              
              <div class="form-row">
@@ -166,12 +172,33 @@ export class BlogManagerComponent implements OnInit {
   initForm() {
     this.blogForm = this.fb.group({
       title: ['', Validators.required],
+      slug: ['', Validators.required],
       category: [''],
-      coverImage: [''],
+      coverImage: ['', Validators.required],
       excerpt: [''],
       content: ['', Validators.required],
       isPublished: [true]
     });
+  }
+
+  slugify(text: string): string {
+    return text
+      .toString()
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w\-]+/g, '')
+      .replace(/\-\-+/g, '-')
+      .replace(/^-+/, '')
+      .replace(/-+$/, '');
+  }
+
+  onTitleChange() {
+    if (!this.editingId) {
+      const titleVal = this.blogForm.get('title')?.value || '';
+      this.blogForm.patchValue({
+        slug: this.slugify(titleVal)
+      });
+    }
   }
 
   fetchData() {
@@ -196,6 +223,7 @@ export class BlogManagerComponent implements OnInit {
     if (blog) {
       this.blogForm.patchValue({
         title: blog.title,
+        slug: blog.slug,
         category: blog.category,
         coverImage: blog.coverImage,
         excerpt: blog.excerpt,

@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../../../core/services/project.service';
 import { Project, ApiResponse } from '../../../core/models/domain.models';
-import { Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, switchMap, tap, catchError } from 'rxjs/operators';
 import { MediaViewerComponent } from '../../../shared/components/media-viewer/media-viewer.component';
 
 @Component({
@@ -26,10 +26,15 @@ export class ProjectDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     // 1. Fetch all projects sequentially to know current index for Prev/Next
-    this.projectService.getProjects().subscribe((res: ApiResponse<Project[]>) => {
-      if (res.success && res.data) {
-        this.allProjects = res.data;
-        this.updateIndex();
+    this.projectService.getProjects().subscribe({
+      next: (res: ApiResponse<Project[]>) => {
+        if (res.success && res.data) {
+          this.allProjects = res.data;
+          this.updateIndex();
+        }
+      },
+      error: (err) => {
+        console.error('SSR or Client error fetching all projects for pagination:', err);
       }
     });
 
@@ -40,10 +45,14 @@ export class ProjectDetailsComponent implements OnInit {
         if (slug) {
           return this.projectService.getProjectBySlug(slug).pipe(
             map((res: ApiResponse<Project>) => res.success ? res.data : null),
-            tap(() => this.updateIndex())
+            tap(() => this.updateIndex()),
+            catchError(err => {
+              console.error('SSR or Client error loading project details:', err);
+              return of(null);
+            })
           );
         }
-        return [null];
+        return of(null);
       })
     );
   }

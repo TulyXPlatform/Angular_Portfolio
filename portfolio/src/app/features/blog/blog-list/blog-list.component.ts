@@ -19,12 +19,18 @@ export class BlogListComponent implements OnInit {
   constructor(private blogService: BlogService) { }
 
   ngOnInit(): void {
-    this.blogService.getBlogs().subscribe((res: ApiResponse<Blog[]>) => {
-      if (res.success && res.data) {
-        this.blogs = res.data;
-        this.totalPages = Math.ceil(this.blogs.length / this.pageSize);
+    this.blogService.getBlogs().subscribe({
+      next: (res: ApiResponse<Blog[]>) => {
+        if (res.success && res.data) {
+          this.blogs = res.data;
+          this.totalPages = Math.ceil(this.blogs.length / this.pageSize);
+        }
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('SSR or Client error fetching blog reports:', err);
+        this.isLoading = false;
       }
-      this.isLoading = false;
     });
   }
 
