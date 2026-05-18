@@ -16,7 +16,7 @@ export class ProjectService {
   }
 
   getProjectBySlug(slug: string): Observable<ApiResponse<Project>> {
-    return this.api.get<ApiResponse<Project>>(`${this.endpoint}/${slug}`);
+    return this.api.get<ApiResponse<Project>>(`${this.endpoint}/slug/${slug}`);
   }
 
   createProject(data: Project): Observable<ApiResponse<Project>> {

@@ -4,20 +4,14 @@ import { Component } from '@angular/core';
   selector: 'app-home',
   template: `
     <app-hero></app-hero>
-    <section class="featured-projects-section container">
-      <div class="section-header">
-        <h2 class="section-title">CORE_OPERATIONS.FEATURED_PROJECTS</h2>
-        <div class="line-deco"></div>
-      </div>
-      <app-projects></app-projects>
-    </section>
+    <app-about></app-about>
+    <app-experience></app-experience>
+    <app-projects></app-projects>
+    <app-contact></app-contact>
   `,
   styles: [`
-    .featured-projects-section {
-      padding: 100px 0;
-    }
-    .section-header {
-      margin-bottom: 50px;
+    :host {
+      display: block;
     }
   `]
 })

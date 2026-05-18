@@ -11,26 +11,20 @@ const routes: Routes = [
     loadChildren: () => import('./features/projects/projects.module').then(m => m.ProjectsModule)
   },
   {
-    path: 'experience',
-    loadChildren: () => import('./features/experience/experience.module').then(m => m.ExperienceModule)
-  },
-  {
     path: 'blog',
     loadChildren: () => import('./features/blog/blog.module').then(m => m.BlogModule)
   },
-  {
-    path: 'about',
-    loadChildren: () => import('./features/about/about.module').then(m => m.AboutModule)
-  },
-  {
-    path: 'contact',
-    loadChildren: () => import('./features/contact/contact.module').then(m => m.ContactModule)
-  }
+  { path: 'about', redirectTo: '', pathMatch: 'full' },
+  { path: 'experience', redirectTo: '', pathMatch: 'full' },
+  { path: 'contact', redirectTo: '', pathMatch: 'full' },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
-    initialNavigation: 'enabledBlocking'
+    initialNavigation: 'enabledBlocking',
+    anchorScrolling: 'enabled',
+    scrollPositionRestoration: 'enabled'
   })],
   exports: [RouterModule]
 })

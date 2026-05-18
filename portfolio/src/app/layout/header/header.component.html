@@ -9,11 +9,11 @@
   <nav class="navigation" [class.mobile-open]="isMobileMenuOpen">
     <ul class="nav-links">
       <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="toggleMobileMenu()">Home</a></li>
-      <li><a routerLink="/about" routerLinkActive="active" (click)="toggleMobileMenu()">About</a></li>
-      <li><a routerLink="/experience" routerLinkActive="active" (click)="toggleMobileMenu()">Experience</a></li>
-      <li><a routerLink="/projects" routerLinkActive="active" (click)="toggleMobileMenu()">Projects</a></li>
+      <li><a routerLink="/" fragment="about" (click)="toggleMobileMenu()">About</a></li>
+      <li><a routerLink="/" fragment="experience" (click)="toggleMobileMenu()">Experience</a></li>
+      <li><a routerLink="/" fragment="projects" (click)="toggleMobileMenu()">Projects</a></li>
       <li><a routerLink="/blog" routerLinkActive="active" (click)="toggleMobileMenu()">Blog</a></li>
-      <li><a routerLink="/contact" routerLinkActive="active" (click)="toggleMobileMenu()">Contact</a></li>
+      <li><a routerLink="/" fragment="contact" (click)="toggleMobileMenu()">Contact</a></li>
     </ul>
     <div class="header-actions">
       <ng-content></ng-content>

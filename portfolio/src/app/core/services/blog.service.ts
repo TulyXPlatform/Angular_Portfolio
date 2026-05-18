@@ -16,7 +16,7 @@ export class BlogService {
   }
 
   getBlogBySlug(slug: string): Observable<ApiResponse<Blog>> {
-    return this.api.get<ApiResponse<Blog>>(`${this.endpoint}/${slug}`);
+    return this.api.get<ApiResponse<Blog>>(`${this.endpoint}/slug/${slug}`);
   }
 
   createBlog(data: Blog): Observable<ApiResponse<Blog>> {
