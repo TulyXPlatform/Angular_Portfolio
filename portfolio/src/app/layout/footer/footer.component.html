@@ -1,5 +1,39 @@
 <footer class="main-footer">
-  <div class="footer-content">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a routerLink="/" class="logo">
+          <span class="logo-mark">MHT</span>
+          <span class="logo-text">Mahmud Hasan Tuhin</span>
+        </a>
+        <p class="tagline">Engineering the future, one blueprint at a time.</p>
+      </div>
+      
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a routerLink="/">Home</a></li>
+          <li><a routerLink="/projects">Projects</a></li>
+          <li><a routerLink="/experience">Experience</a></li>
+          <li><a routerLink="/contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p><i class="fas fa-envelope"></i> contact@mahmudhasantuhin.com</p>
+        <p><i class="fas fa-phone"></i> +880 123 456 7890</p>
+        <div class="social-links">
+          <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; {{ currentYear }} Mahmud Hasan Tuhin. All rights reserved.</p>
       <ng-content></ng-content>
+    </div>
   </div>
 </footer>
