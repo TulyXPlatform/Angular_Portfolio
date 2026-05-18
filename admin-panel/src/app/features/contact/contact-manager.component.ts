@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ContactService } from '../../core/services/contact.service';
 
 @Component({
@@ -102,7 +103,7 @@ export class ContactManagerComponent implements OnInit {
   constructor(
     private fb: FormBuilder, 
     private contactService: ContactService,
-    private sanitizer: import('@angular/platform-browser').DomSanitizer
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
