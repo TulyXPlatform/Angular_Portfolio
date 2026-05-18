@@ -54,6 +54,15 @@ import { HeroService } from '../../core/services/hero.service';
             <div class="card-header">Media & CTA</div>
             <div class="card-body">
                <div class="form-group">
+                 <label>Engineer Photo URL (Avatar)</label>
+                 <input type="text" formControlName="avatarUrl" class="form-control" placeholder="URL to photo">
+               </div>
+               
+               <div class="media-preview" *ngIf="heroForm.get('avatarUrl')?.value" style="text-align: center; margin-bottom: 20px;">
+                 <img [src]="heroForm.get('avatarUrl')?.value" style="width:120px; height:120px; border-radius:50%; object-fit:cover; border: 3px dashed #cbd5e0;" onerror="this.style.display='none'">
+               </div>
+
+               <div class="form-group">
                  <label>Background Media URL (Image/Video/Color)</label>
                  <input type="text" formControlName="backgroundMedia" class="form-control" placeholder="URL or HEX color">
                </div>
@@ -134,6 +143,7 @@ export class HeroManagerComponent implements OnInit {
       subtitle: [''],
       backgroundMedia: [''],
       overlayOpacity: [0.6],
+      avatarUrl: [''],
       ctaButtons: this.fb.array([])
     });
   }
@@ -162,7 +172,8 @@ export class HeroManagerComponent implements OnInit {
             title: res.data.title,
             subtitle: res.data.subtitle,
             backgroundMedia: res.data.backgroundMedia,
-            overlayOpacity: res.data.overlayOpacity
+            overlayOpacity: res.data.overlayOpacity,
+            avatarUrl: res.data.avatarUrl || ''
           });
           
           if (res.data.ctaButtons && res.data.ctaButtons.length) {

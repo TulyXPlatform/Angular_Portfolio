@@ -19,6 +19,7 @@ export interface Hero {
   ctaButtons: { label: string; link: string }[];
   backgroundMedia: string;
   overlayOpacity: number;
+  avatarUrl?: string;
 }
 
 export interface About {

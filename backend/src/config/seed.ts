@@ -23,7 +23,8 @@ const seedAdmin = async () => {
           { label: 'INITIATE_CONTACT', link: '/contact' }
         ],
         backgroundMedia: 'https://images.unsplash.com/photo-1517433447747-2337d100062a?auto=format&fit=crop&q=80',
-        overlayOpacity: 0.6
+        overlayOpacity: 0.6,
+        avatarUrl: 'https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&q=80'
       });
       console.log('Hero data seeded.');
     }

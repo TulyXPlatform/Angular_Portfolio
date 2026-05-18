@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HeroService } from '../../../core/services/hero.service';
-import { Hero, ApiResponse } from '../../../core/models/domain.models';
+import { ContactService } from '../../../core/services/contact.service';
+import { Hero, ContactData, ApiResponse } from '../../../core/models/domain.models';
 import { Observable, of } from 'rxjs';
 import { map, shareReplay, tap, catchError } from 'rxjs/operators';
 import { SeoService } from '../../../core/services/seo.service';
@@ -12,8 +13,13 @@ import { SeoService } from '../../../core/services/seo.service';
 })
 export class HeroComponent implements OnInit {
   heroData$!: Observable<Hero | null>;
+  contactData$!: Observable<ContactData | null>;
 
-  constructor(private heroService: HeroService, private seoService: SeoService) { }
+  constructor(
+    private heroService: HeroService, 
+    private contactService: ContactService,
+    private seoService: SeoService
+  ) { }
 
   ngOnInit(): void {
     // Fetch dynamic content + hook universal SEO
@@ -36,6 +42,16 @@ export class HeroComponent implements OnInit {
       map((res: ApiResponse<Hero>) => res.success ? res.data : null),
       catchError(err => {
         console.error('SSR or Client error loading hero background payload:', err);
+        return of(null);
+      }),
+      shareReplay(1)
+    );
+
+    // Fetch dynamic contact data coordinates
+    this.contactData$ = this.contactService.getContactData().pipe(
+      map((res: ApiResponse<ContactData>) => res.success ? res.data : null),
+      catchError(err => {
+        console.error('SSR or Client error loading contact coordinates in Hero:', err);
         return of(null);
       }),
       shareReplay(1)

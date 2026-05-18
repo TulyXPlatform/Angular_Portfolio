@@ -12,24 +12,97 @@
   <!-- Dynamic Overlay Opacity Support -->
   <div class="video-overlay" [style.opacity]="heroData.overlayOpacity || 0.6"></div>
 
-  <div class="hero-content">
-    <div class="drafting-box">
-      <div class="corner top-left"></div>
-      <div class="corner top-right"></div>
-      <div class="corner bottom-left"></div>
-      <div class="corner bottom-right"></div>
+  <!-- Grid Blueprint Background Overlay -->
+  <div class="blueprint-grid-overlay"></div>
+
+  <div class="container hero-container">
+    <div class="hero-grid">
       
-      <h1 class="glitch" [attr.data-text]="heroData.title">
-        {{ heroData.title }}
-      </h1>
-      <p class="subtitle">{{ heroData.subtitle }}</p>
-      
-      <div class="cta-container">
-        <!-- Render infinite buttons cleanly if available -->
-        <a *ngFor="let btn of heroData.ctaButtons" [href]="btn.link" class="blueprint-btn">
-          {{ btn.label }}
-        </a>
+      <!-- Left Column: Title, Subtitle, HUD Stats, and CTAs -->
+      <div class="hero-left-col">
+        <div class="drafting-box">
+          <div class="corner top-left"></div>
+          <div class="corner top-right"></div>
+          <div class="corner bottom-left"></div>
+          <div class="corner bottom-right"></div>
+          
+          <div class="hud-tag">> SYSTEM_INITIATED // STABILITY_SECURED</div>
+          
+          <h1 class="glitch" [attr.data-text]="heroData.title">
+            {{ heroData.title }}
+          </h1>
+          
+          <p class="subtitle">{{ heroData.subtitle }}</p>
+          
+          <!-- Technical CAD Stats HUD -->
+          <div class="cad-stats-hud">
+            <div class="stat-item">
+              <span class="stat-label">EXP_RATIO</span>
+              <span class="stat-value">10+ YEARS</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">STRUCTURES</span>
+              <span class="stat-value">50+ BUILT</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">STABILITY</span>
+              <span class="stat-value">100% SAFE</span>
+            </div>
+          </div>
+          
+          <div class="cta-container">
+            <a *ngFor="let btn of heroData.ctaButtons" [href]="btn.link" class="blueprint-btn">
+              <span class="btn-text">{{ btn.label }}</span>
+              <span class="btn-arrow"></span>
+            </a>
+          </div>
+        </div>
       </div>
+      
+      <!-- Right Column: Avatar Photo & Contact Coordinates HUD -->
+      <div class="hero-right-col" *ngIf="contactData$ | async as contact">
+        <div class="engineer-hud-card">
+          <!-- Drafting Corners -->
+          <div class="corner top-left"></div>
+          <div class="corner top-right"></div>
+          <div class="corner bottom-left"></div>
+          <div class="corner bottom-right"></div>
+          
+          <!-- Tech HUD Compass Ring & Crosshair Frame -->
+          <div class="avatar-technical-frame">
+            <div class="technical-compass-ring"></div>
+            <div class="technical-reticle-h"></div>
+            <div class="technical-reticle-v"></div>
+            <div class="technical-corners"></div>
+            
+            <img [src]="heroData.avatarUrl || 'assets/placeholder.jpg'" alt="Lead Civil Engineer avatar" class="engineer-photo">
+          </div>
+          
+          <!-- Contact Coordinates Metadata Panel -->
+          <div class="coordinates-panel">
+            <div class="panel-header">
+              <span class="status-indicator-dot"></span>
+              <span class="panel-title">> TRANSMISSION_COORDINATES</span>
+            </div>
+            
+            <ul class="coordinate-list">
+              <li>
+                <span class="coord-label">EMAIL_ADDR:</span>
+                <span class="coord-val">{{ contact.email }}</span>
+              </li>
+              <li>
+                <span class="coord-label">PHONE_COM:</span>
+                <span class="coord-val">{{ contact.phone }}</span>
+              </li>
+              <li>
+                <span class="coord-label">GPS_LOCAT:</span>
+                <span class="coord-val">{{ contact.address }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
     </div>
   </div>
 </section>

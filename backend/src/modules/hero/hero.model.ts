@@ -6,6 +6,7 @@ export interface IHero extends Document {
   ctaButtons: { label: string; link: string }[];
   backgroundMedia: string;
   overlayOpacity: number;
+  avatarUrl: string;
 }
 
 const HeroSchema = new Schema({
@@ -16,7 +17,8 @@ const HeroSchema = new Schema({
     link: { type: String, required: true }
   }],
   backgroundMedia: { type: String, required: true },
-  overlayOpacity: { type: Number, default: 0.5 }
+  overlayOpacity: { type: Number, default: 0.5 },
+  avatarUrl: { type: String, default: '' }
 }, { timestamps: true });
 
 export default mongoose.model<IHero>('Hero', HeroSchema);
