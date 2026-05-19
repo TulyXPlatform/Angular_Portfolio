@@ -3,19 +3,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  background: var(--bg-main);
   font-family: 'Inter', sans-serif;
+  
+  /* Grid backdrop for login */
+  background-image: 
+    linear-gradient(var(--blueprint-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--blueprint-line) 1px, transparent 1px),
+    linear-gradient(var(--blueprint-line-thick) 1px, transparent 1px),
+    linear-gradient(90deg, var(--blueprint-line-thick) 1px, transparent 1px);
+  background-size: 40px 40px, 40px 40px, 200px 200px, 200px 200px;
 }
 
 .login-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
+  background: var(--card-bg);
   padding: 3rem;
-  border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
   width: 100%;
   max-width: 400px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color-thick);
 }
 
 .login-header {
@@ -24,13 +31,15 @@
 }
 
 .login-header h1 {
-  color: #fff;
+  color: var(--accent);
   font-size: 2rem;
   margin-bottom: 0.5rem;
+  font-family: 'Roboto Mono', monospace;
+  text-transform: uppercase;
 }
 
 .login-header p {
-  color: #a0a0c0;
+  color: var(--text-secondary);
   font-size: 0.9rem;
 }
 
@@ -40,53 +49,59 @@
 
 .form-group label {
   display: block;
-  color: #fff;
+  color: var(--text-secondary);
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
+  font-family: 'Roboto Mono', monospace;
 }
 
 .form-group input {
   width: 100%;
   padding: 0.8rem 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  color: #fff;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 0px;
+  color: var(--input-text);
   transition: all 0.3s ease;
   outline: none;
+  font-family: 'Roboto Mono', monospace;
 }
 
 .form-group input:focus {
-  border-color: #4ecca3;
-  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent);
+  background: rgba(100, 255, 218, 0.05);
 }
 
 .form-group input.invalid {
-  border-color: #ff4b2b;
+  border-color: var(--danger-color);
 }
 
 .error-message {
-  color: #ff4b2b;
+  color: var(--danger-color);
   font-size: 0.85rem;
   margin-bottom: 1rem;
   text-align: center;
+  font-family: 'Roboto Mono', monospace;
 }
 
 button {
   width: 100%;
   padding: 0.8rem;
-  background: #4ecca3;
-  color: #1a1a2e;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
   border: none;
-  border-radius: 10px;
+  border-radius: 0px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-family: 'Roboto Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 button:hover:not(:disabled) {
-  background: #45b393;
-  transform: translateY(-2px);
+  background: var(--btn-primary-hover);
+  box-shadow: 0 0 15px rgba(100, 255, 218, 0.3);
 }
 
 button:disabled {
@@ -98,12 +113,13 @@ button:disabled {
   display: inline-block;
   width: 20px;
   height: 20px;
-  border: 3px solid rgba(26, 26, 46, 0.3);
+  border: 3px solid rgba(10, 25, 47, 0.3);
   border-radius: 50%;
-  border-top-color: #1a1a2e;
+  border-top-color: var(--bg-main);
   animation: spin 1s ease-in-out infinite;
 }
 
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+

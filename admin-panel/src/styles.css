@@ -1,6 +1,265 @@
 /* Admin Panel Styles */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&family=Inter:wght@300;400;600;800&display=swap');
+
+:root {
+  /* Blueprint/Portfolio Theme Colors */
+  --bg-main: #0a192f;
+  --sidebar-bg: #0d1e36;
+  --sidebar-active: #172a45;
+  --accent: #64ffda;
+  --accent-hover: #52ebd7;
+  --text-primary: #ccd6f6;
+  --text-secondary: #8892b0;
+  --sidebar-text: #8892b0;
+  --card-bg: #112240;
+  --border-color: rgba(100, 255, 218, 0.1);
+  --border-color-thick: rgba(100, 255, 218, 0.25);
+  
+  --input-bg: rgba(0, 0, 0, 0.25);
+  --input-border: rgba(100, 255, 218, 0.2);
+  --input-focus-border: #64ffda;
+  --input-text: #ccd6f6;
+  
+  --success-bg: rgba(100, 255, 218, 0.05);
+  --success-color: #64ffda;
+  --danger-bg: rgba(248, 113, 113, 0.05);
+  --danger-color: #f87171;
+  
+  --btn-primary-bg: #64ffda;
+  --btn-primary-text: #0a192f;
+  --btn-primary-hover: #52ebd7;
+  
+  --btn-secondary-bg: #172a45;
+  --btn-secondary-text: #ccd6f6;
+  --btn-secondary-hover: #20375a;
+
+  --admin-primary: #64ffda;
+  --admin-primary-hover: #52ebd7;
+
+  /* Engineering Blueprint Grid lines */
+  --blueprint-line: rgba(100, 255, 218, 0.03);
+  --blueprint-line-thick: rgba(100, 255, 218, 0.08);
+}
+
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background-color: #f4f7f6;
+  background-color: var(--bg-main) !important;
+  color: var(--text-primary) !important;
+  
+  /* Global Engineering Grid Backdrop */
+  background-image: 
+    linear-gradient(var(--blueprint-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--blueprint-line) 1px, transparent 1px),
+    linear-gradient(var(--blueprint-line-thick) 1px, transparent 1px),
+    linear-gradient(90deg, var(--blueprint-line-thick) 1px, transparent 1px);
+  background-size: 40px 40px, 40px 40px, 200px 200px, 200px 200px;
+  background-attachment: fixed;
+  background-position: center center;
 }
+
+/* Global component overrides for modular CSS variables */
+.page-container {
+  padding: 30px !important;
+  background-color: transparent !important;
+}
+
+/* Titles and Typography */
+h1, h2, h3, h4, h5, h6, .page-title {
+  color: var(--text-primary) !important;
+  font-family: 'Roboto Mono', monospace !important;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.title-section h1 {
+  font-size: 24px !important;
+  color: var(--accent) !important;
+}
+.title-section p, .page-header p {
+  color: var(--text-secondary) !important;
+}
+
+/* Cards & Panels */
+.card, .panel, .projects-table-container {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--border-color-thick) !important;
+  border-radius: 4px !important; /* Tech sharp-ish corners */
+  box-shadow: var(--card-shadow) !important;
+  color: var(--text-primary) !important;
+}
+
+.card-header, .panel-title {
+  background: rgba(10, 25, 47, 0.4) !important;
+  border-bottom: 1px solid var(--border-color-thick) !important;
+  color: var(--accent) !important;
+  font-family: 'Roboto Mono', monospace !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.card-body {
+  padding: 20px !important;
+}
+
+/* Form Controls & Inputs */
+.form-group label {
+  color: var(--text-secondary) !important;
+  font-weight: 500 !important;
+  font-family: 'Roboto Mono', monospace !important;
+  font-size: 13px !important;
+}
+
+.form-control, input[type="text"], input[type="email"], input[type="password"], textarea, select {
+  background: var(--input-bg) !important;
+  border: 1px solid var(--input-border) !important;
+  border-radius: 0px !important; /* Blueprint style: sharp corners */
+  color: var(--input-text) !important;
+  font-family: 'Roboto Mono', monospace !important;
+  transition: all 0.3s ease !important;
+}
+
+.form-control:focus, input[type="text"]:focus, textarea:focus, select:focus {
+  border-color: var(--input-focus-border) !important;
+  outline: none !important;
+  background: rgba(100, 255, 218, 0.05) !important;
+  box-shadow: inset 0 0 10px rgba(100, 255, 218, 0.1) !important;
+}
+
+.form-control::placeholder {
+  color: rgba(136, 146, 176, 0.4) !important;
+}
+
+/* Buttons */
+.btn-primary, .mat-primary-btn {
+  background: var(--btn-primary-bg) !important;
+  color: var(--btn-primary-text) !important;
+  border: 1px solid var(--btn-primary-bg) !important;
+  border-radius: 0px !important; /* Sharp blueprint buttons */
+  font-family: 'Roboto Mono', monospace !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 10px rgba(100, 255, 218, 0.15) !important;
+}
+
+.btn-primary:hover:not(:disabled), .mat-primary-btn:hover {
+  background: var(--btn-primary-hover) !important;
+  border-color: var(--btn-primary-hover) !important;
+  box-shadow: 0 4px 15px rgba(100, 255, 218, 0.3) !important;
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled, .mat-primary-btn:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  background: var(--input-bg) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-secondary) !important;
+}
+
+.btn-secondary {
+  background: var(--btn-secondary-bg) !important;
+  color: var(--btn-secondary-text) !important;
+  border: 1px solid var(--border-color-thick) !important;
+  border-radius: 0px !important;
+  font-family: 'Roboto Mono', monospace !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--btn-secondary-hover) !important;
+  color: var(--accent) !important;
+  border-color: var(--accent) !important;
+}
+
+.btn-danger {
+  background: rgba(248, 113, 113, 0.1) !important;
+  color: var(--danger-color) !important;
+  border: 1px solid var(--danger-color) !important;
+  border-radius: 0px !important;
+  font-family: 'Roboto Mono', monospace !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn-danger:hover {
+  background: var(--danger-color) !important;
+  color: var(--bg-main) !important;
+}
+
+/* Tables */
+.data-table, table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  background: var(--card-bg) !important;
+}
+
+.data-table th, table th {
+  background: rgba(10, 25, 47, 0.5) !important;
+  color: var(--accent) !important;
+  font-family: 'Roboto Mono', monospace !important;
+  font-weight: 600 !important;
+  border-bottom: 1px solid var(--border-color-thick) !important;
+  padding: 15px !important;
+}
+
+.data-table td, table td {
+  border-bottom: 1px solid var(--border-color) !important;
+  color: var(--text-primary) !important;
+  padding: 15px !important;
+}
+
+.data-table tr:hover, table tr:hover {
+  background: rgba(100, 255, 218, 0.02) !important;
+}
+
+/* Alerts */
+.alert {
+  padding: 15px !important;
+  border-radius: 0px !important;
+  margin-bottom: 20px !important;
+  font-family: 'Roboto Mono', monospace !important;
+  font-size: 14px !important;
+}
+
+.alert-success {
+  background: var(--success-bg) !important;
+  color: var(--success-color) !important;
+  border: 1px solid var(--success-color) !important;
+}
+
+.alert-danger {
+  background: var(--danger-bg) !important;
+  color: var(--danger-color) !important;
+  border: 1px solid var(--danger-color) !important;
+}
+
+/* Custom chips and tags */
+.chip, .tech-tag {
+  background: rgba(100, 255, 218, 0.05) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-secondary) !important;
+  font-family: 'Roboto Mono', monospace !important;
+  border-radius: 0px !important;
+}
+
+/* Hardware Accelerated Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+  border-left: 1px solid var(--border-color);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color-thick);
+  border-radius: 0;
+  border: 1px solid var(--bg-main);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
